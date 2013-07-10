@@ -1,0 +1,29 @@
+<html ng-app="app">
+<head>
+    <title>Angular multiselect</title>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
+    <script src="app.js"></script>
+    <script src="multiselect.js"></script>
+</head>
+<body ng-controller="appCtrl">
+    <h1>Example</h1>
+    <multiselect class="input-xlarge" multiple="true"
+        ng-model="selectedCar"
+        options="c.name for c in cars"
+        change="selected()" ></multiselect>
+        <div class="well well-small">
+            {{selectedCar}}
+        </div>
+    Single select:
+        <multiselect class="input-xlarge"
+        ng-model="selectedFruit"
+        options="c.name for c in fruits"
+        change="selected()" ></multiselect>
+        <div class="well well-small">
+            {{selectedFruit}}
+        </div>
+</body>
+</html>

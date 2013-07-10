@@ -1,4 +1,4 @@
 angular-multiselect
 ===================
 
-Native AngularJS multiselect directive
+Native AngularJS multiselect directive - Work in progress. Contributions welcome!
