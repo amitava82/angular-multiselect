@@ -232,10 +232,11 @@ angular.module('ui.multiselect', [])
           }
         };
 
-        function clickHandler() {
+        function clickHandler(event) {
           if (elementMatchesAnyInArray(event.target, element.find(event.target.tagName)))
             return;
           element.removeClass('open');
+          $document.unbind('click', clickHandler);
           scope.$apply();
         }
 
