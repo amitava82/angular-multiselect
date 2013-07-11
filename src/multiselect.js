@@ -229,6 +229,7 @@ angular.module('ui.multiselect', [])
           } else {
             element.addClass('open');
             $document.bind('click', clickHandler);
+            scope.focus();
           }
         };
 
@@ -238,6 +239,11 @@ angular.module('ui.multiselect', [])
           element.removeClass('open');
           $document.unbind('click', clickHandler);
           scope.$apply();
+        }
+
+        scope.focus = function focus(){
+          var searchBox = element.find('input')[0];
+          searchBox.focus(); 
         }
 
         var elementMatchesAnyInArray = function (element, elementArray) {

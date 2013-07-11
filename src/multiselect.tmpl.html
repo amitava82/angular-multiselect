@@ -12,7 +12,7 @@
       <button class="btn-link btn-small" ng-click="uncheckAll()"><i class="icon-remove"></i> Uncheck all</button>
     </li>
     <li ng-repeat="i in items | filter:searchText">
-      <a ng-click="select(i)">
+      <a ng-click="select(i); focus()">
         <i ng-class="{'icon-ok': i.checked, 'icon-empty': !i.checked}"></i>{{i.label}}</a>
     </li>
   </ul>
