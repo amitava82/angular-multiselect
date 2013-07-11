@@ -37,6 +37,7 @@ angular.module('ui.multiselect', [])
           var exp = attrs.options,
             parsedResult = optionParser.parse(exp),
             isMultiple = attrs.multiple ? true : false,
+            required = false,
             scope = originalScope.$new(),
             changeHandler = attrs.change || anguler.noop;
 
@@ -50,6 +51,14 @@ angular.module('ui.multiselect', [])
           });
 
           var popUpEl = angular.element('<multiselect-popup></multiselect-popup>');
+
+          //required validator
+          if (attrs.required || attrs.ngRequired) {
+            required = true;
+          }
+          attrs.$observe('required', function(newVal) {
+            required = newVal;
+          });
 
           //watch disabled state
           scope.$watch(function () {
@@ -107,7 +116,7 @@ angular.module('ui.multiselect', [])
           element.append($compile(popUpEl)(scope));
 
           function getHeaderText() {
-            if (!scope.valid()) return scope.header = 'Select';
+            if (!modelCtrl.$modelValue || !modelCtrl.$modelValue.length) return scope.header = 'Select';
             if (isMultiple) {
               scope.header = modelCtrl.$modelValue.length + ' ' + 'selected';
             } else {
@@ -118,6 +127,7 @@ angular.module('ui.multiselect', [])
           }
 
           scope.valid = function validModel() {
+            if(!required) return true;
             var value = modelCtrl.$modelValue;
             return (angular.isArray(value) && value.length > 0) || (!angular.isArray(value) && value != null);
           };
@@ -193,6 +203,7 @@ angular.module('ui.multiselect', [])
           scope.select = function (item) {
             if (isMultiple === false) {
               selectSingle(item);
+              scope.toggleSelect();
             } else {
               selectMultiple(item);
             }
@@ -201,7 +212,7 @@ angular.module('ui.multiselect', [])
       };
     }])
 
-  .directive('multiselectPopup', function ($document) {
+  .directive('multiselectPopup', ['$document', function ($document) {
     return {
       restrict: 'E',
       scope: false,
@@ -236,4 +247,4 @@ angular.module('ui.multiselect', [])
         }
       }
     }
-  });
+  }]);
