@@ -117,7 +117,8 @@ angular.module('ui.multiselect', [])
           element.append($compile(popUpEl)(scope));
 
           function getHeaderText() {
-            if (!modelCtrl.$modelValue || !modelCtrl.$modelValue.length) return scope.header = 'Select';
+            if (is_empty(modelCtrl.$modelValue)) return scope.header = 'Select';
+            
             if (isMultiple) {
               scope.header = modelCtrl.$modelValue.length + ' ' + 'selected';
             } else {
@@ -126,6 +127,13 @@ angular.module('ui.multiselect', [])
               scope.header = parsedResult.viewMapper(local);
             }
           }
+          
+          function is_empty(obj) {
+            if (!obj) return true;
+            if (obj.length && obj.length > 0) return false;
+            for (var prop in obj) if (obj[prop]) return false;
+            return true;
+          };
 
           scope.valid = function validModel() {
             if(!required) return true;
