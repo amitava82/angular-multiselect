@@ -80,7 +80,7 @@ angular.module('ui.multiselect', [])
           }, function (newVal) {
             if (angular.isDefined(newVal))
               parseModel();
-          });
+          }, true);
 
           //watch model change
           scope.$watch(function () {
@@ -100,6 +100,7 @@ angular.module('ui.multiselect', [])
           function parseModel() {
             scope.items.length = 0;
             var model = parsedResult.source(originalScope);
+            if(!angular.isDefined(model)) return;
             for (var i = 0; i < model.length; i++) {
               var local = {};
               local[parsedResult.itemName] = model[i];
