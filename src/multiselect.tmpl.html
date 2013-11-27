@@ -1,5 +1,5 @@
 <div class="dropdown">
-  <button class="btn" ng-click="toggleSelect()" ng-disabled="disabled" ng-class="{'error': !valid()}">
+  <button class="btn" ng-click="toggleSelect()" ng-disabled="disabled" ng-class="{'error': !valid()}" type="button">
     <span class="pull-left">{{header}}</span>
     <span class="caret pull-right"></span>
   </button>
@@ -8,8 +8,8 @@
       <input class="input-block-level" type="text" ng-model="searchText.label" autofocus="autofocus" placeholder="Filter" />
     </li>
     <li ng-show="multiple">
-      <button class="btn-link btn-small" ng-click="checkAll()"><i class="icon-ok"></i> Check all</button>
-      <button class="btn-link btn-small" ng-click="uncheckAll()"><i class="icon-remove"></i> Uncheck all</button>
+      <button class="btn-link btn-small" ng-click="checkAll()" type="button"><i class="icon-ok"></i> Check all</button>
+      <button class="btn-link btn-small" ng-click="uncheckAll()" type="button"><i class="icon-remove"></i> Uncheck all</button>
     </li>
     <li ng-repeat="i in items | filter:searchText">
       <a ng-click="select(i); focus()">
