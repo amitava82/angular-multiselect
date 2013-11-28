@@ -1,19 +1,18 @@
-<div class="dropdown">
-  <button class="btn" ng-click="toggleSelect()" ng-disabled="disabled" ng-class="{'error': !valid()}" type="button">
-    <span class="pull-left">{{header}}</span>
-    <span class="caret pull-right"></span>
+<div class="btn-group">
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" ng-click="toggleSelect()" ng-disabled="disabled" ng-class="{'error': !valid()}">
+    {{header}} <span class="caret"></span>
   </button>
   <ul class="dropdown-menu">
     <li>
-      <input class="input-block-level" type="text" ng-model="searchText.label" autofocus="autofocus" placeholder="Filter" />
+      <input class="form-control input-sm" type="text" ng-model="searchText.label" autofocus="autofocus" placeholder="Filter" />
     </li>
-    <li ng-show="multiple">
-      <button class="btn-link btn-small" ng-click="checkAll()" type="button"><i class="icon-ok"></i> Check all</button>
-      <button class="btn-link btn-small" ng-click="uncheckAll()" type="button"><i class="icon-remove"></i> Uncheck all</button>
+    <li ng-show="multiple" role="presentation" class="">
+      <button class="btn btn-link btn-xs" ng-click="checkAll()" type="button"><i class="glyphicon glyphicon-ok"></i> Check all</button>
+      <button class="btn btn-link btn-xs" ng-click="uncheckAll()" type="button"><i class="glyphicon glyphicon-remove"></i> Uncheck all</button>
     </li>
     <li ng-repeat="i in items | filter:searchText">
       <a ng-click="select(i); focus()">
-        <i ng-class="{'icon-ok': i.checked, 'icon-empty': !i.checked}"></i>{{i.label}}</a>
+        <i class='glyphicon' ng-class="{'glyphicon-ok': i.checked, 'empty': !i.checked}"></i> {{i.label}}</a>
     </li>
   </ul>
 </div>
