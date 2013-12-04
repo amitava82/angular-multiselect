@@ -134,7 +134,7 @@ angular.module('ui.multiselect', [])
           function is_empty(obj) {
             if (!obj) return true;
             if (obj.length && obj.length > 0) return false;
-            for (var prop in obj) if (obj[prop]) return false;
+            for (var prop in obj) if (obj.hasOwnProperty(prop)) return false;
             return true;
           };
 
