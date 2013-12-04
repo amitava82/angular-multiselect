@@ -1,3 +1,4 @@
+//Taken From https://github.com/amitava82/angular-multiselect
 angular.module('ui.multiselect', [])
 
   //from bootstrap-ui typeahead parser
@@ -89,9 +90,11 @@ angular.module('ui.multiselect', [])
             //when directive initialize, newVal usually undefined. Also, if model value already set in the controller
             //for preselected list then we need to mark checked in our scope item. But we don't want to do this every time
             //model changes. We need to do this only if it is done outside directive scope, from controller, for example.
-            if (angular.isDefined(newVal)) {
+            if (angular.isDefined(newVal) && newVal.length > 0) {
               markChecked(newVal);
               scope.$eval(changeHandler);
+            }else if(angular.isDefined(newVal) && newVal.length == 0){
+              scope.uncheckAll();
             }
             getHeaderText();
             modelCtrl.$setValidity('required', scope.valid());
@@ -184,10 +187,15 @@ angular.module('ui.multiselect', [])
                 }
               });
             } else {
+              var marked = new Object();
               angular.forEach(newVal, function (i) {
                 angular.forEach(scope.items, function (item) {
                   if (angular.equals(item.model, i)) {
                     item.checked = true;
+                    marked[i] = true;
+                  }else{
+                    if(!marked[item.model])
+                      item.checked = false;
                   }
                 });
               });
