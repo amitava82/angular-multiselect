@@ -26,9 +26,9 @@ angular.module('ui.multiselect', [])
     };
   }])
 
-  .directive('multiselect', ['$parse', '$document', '$compile', 'optionParser',
+  .directive('multiselect', ['$parse', '$document', '$compile', '$interpolate', 'optionParser',
 
-    function ($parse, $document, $compile, optionParser) {
+    function ($parse, $document, $compile, $interpolate, optionParser) {
       return {
         restrict: 'E',
         require: 'ngModel',
@@ -117,10 +117,15 @@ angular.module('ui.multiselect', [])
           element.append($compile(popUpEl)(scope));
 
           function getHeaderText() {
-            if (is_empty(modelCtrl.$modelValue)) return scope.header = 'Select';
+            if (is_empty(modelCtrl.$modelValue)) return scope.header = attrs.msHeader || 'Select';
             
-            if (isMultiple) {
-              scope.header = modelCtrl.$modelValue.length + ' ' + 'selected';
+              if (isMultiple) {
+                  if (attrs.msSelected) {
+                      scope.header = $interpolate(attrs.msSelected)(scope);
+                  } else {
+                      scope.header = modelCtrl.$modelValue.length + ' ' + 'selected';
+                  }
+              
             } else {
               var local = {};
               local[parsedResult.itemName] = modelCtrl.$modelValue;
