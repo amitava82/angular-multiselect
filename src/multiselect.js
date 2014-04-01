@@ -184,8 +184,9 @@ angular.module('ui.multiselect', [])
                 }
               });
             } else {
-              angular.forEach(newVal, function (i) {
-                angular.forEach(scope.items, function (item) {
+              angular.forEach(scope.items, function (item) {
+                item.checked = false;
+                angular.forEach(newVal, function (i) {
                   if (angular.equals(item.model, i)) {
                     item.checked = true;
                   }
