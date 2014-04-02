@@ -10,7 +10,7 @@
 </head>
 <body ng-controller="appCtrl">
     <h1>Example</h1>
-    <multiselect class="input-lg" multiple="true" ms-selected = "There are {{selectedCar.length}} car(s) selected" 
+    <multiselect class="input-lg" multiple="true" ms-selected ="There are {{selectedCar.length}} car(s) selected" 
         ng-model="selectedCar" ms-header="Select Some Cars"
         options="c.name for c in cars"
         change="selected()"></multiselect>
