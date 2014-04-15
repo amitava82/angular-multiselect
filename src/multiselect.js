@@ -106,7 +106,7 @@ angular.module('ui.multiselect', [])
               local[parsedResult.itemName] = model[i];
               scope.items.push({
                 label: parsedResult.viewMapper(local),
-                model: model[i],
+                model: parsedResult.modelMapper(local),
                 checked: false
               });
             }
