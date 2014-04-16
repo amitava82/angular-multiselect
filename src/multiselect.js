@@ -50,7 +50,7 @@ angular.module('ui.multiselect', [])
             scope.$destroy();
           });
 
-          var popUpEl = angular.element('<multiselect-popup></multiselect-popup>');
+          var popUpEl = angular.element('<multiselect-popup multiple="'+scope.multiple+'"></multiselect-popup>');
 
           //required validator
           if (attrs.required || attrs.ngRequired) {
@@ -237,6 +237,7 @@ angular.module('ui.multiselect', [])
 
         scope.isVisible = false;
         scope.eventHandlerIsBound = false;
+        scope.multiple = attrs.multiple ? true : false;
 
         scope.toggleSelect = function () {
           if (element.hasClass('open')) {
@@ -253,8 +254,10 @@ angular.module('ui.multiselect', [])
           if (scope.eventHandlerIsBound) {
             return;
           }
-          element.find('ul *').bind('click', function() {
-            event.stopPropagation();
+          element.find('ul, ul *').bind('click', function(event) {
+            if (scope.multiple || 'A' != event.target.tagName) {
+              event.stopPropagation();
+            }
           });
           scope.eventHandlerIsBound = true;
         }
