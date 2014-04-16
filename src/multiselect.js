@@ -237,6 +237,16 @@ angular.module('ui.multiselect', [])
 
         scope.isVisible = false;
 
+        resize = function() {
+          var $ul = element.find('ul')
+            , margin = 50
+            , top = $ul.position().top
+            , maxHeight = $(window).innerHeight();
+          if (($ul.height() + top) > maxHeight) {
+            $ul.css({height: (maxHeight - top - margin), overflow: 'scroll'});
+          }
+        }
+
         scope.toggleSelect = function () {
           if (element.hasClass('open')) {
             element.removeClass('open');
@@ -244,6 +254,7 @@ angular.module('ui.multiselect', [])
           } else {
             element.addClass('open');
             $document.bind('click', clickHandler);
+            resize();
             scope.focus();
           }
         };
