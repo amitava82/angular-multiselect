@@ -236,8 +236,30 @@ angular.module('ui.multiselect', [])
       link: function (scope, element, attrs) {
 
         scope.isVisible = false;
+        scope.eventHandlerIsBound = false;
 
-        resize = function() {
+        scope.toggleSelect = function () {
+          if (element.hasClass('open')) {
+            element.removeClass('open');
+          } else {
+            element.addClass('open');
+            scope.bindEventHandler();
+            scope.resize();
+            scope.focus();
+          }
+        };
+
+        scope.bindEventHandler = function() {
+          if (scope.eventHandlerIsBound) {
+            return;
+          }
+          element.find('ul *').bind('click', function() {
+            event.stopPropagation();
+          });
+          scope.eventHandlerIsBound = true;
+        }
+
+        scope.resize = function() {
           var $ul = element.find('ul')
             , margin = 50
             , top = $ul.position().top
@@ -247,36 +269,9 @@ angular.module('ui.multiselect', [])
           }
         }
 
-        scope.toggleSelect = function () {
-          if (element.hasClass('open')) {
-            element.removeClass('open');
-            $document.unbind('click', clickHandler);
-          } else {
-            element.addClass('open');
-            $document.bind('click', clickHandler);
-            resize();
-            scope.focus();
-          }
-        };
-
-        function clickHandler(event) {
-          if (elementMatchesAnyInArray(event.target, element.find(event.target.tagName)))
-            return;
-          element.removeClass('open');
-          $document.unbind('click', clickHandler);
-          scope.$apply();
-        }
-
         scope.focus = function focus(){
           var searchBox = element.find('input')[0];
           searchBox.focus(); 
-        }
-
-        var elementMatchesAnyInArray = function (element, elementArray) {
-          for (var i = 0; i < elementArray.length; i++)
-            if (element == elementArray[i])
-              return true;
-          return false;
         }
       }
     }
