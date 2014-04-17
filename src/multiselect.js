@@ -255,8 +255,22 @@ angular.module('ui.multiselect', [])
             return;
           }
           element.find('ul, ul *').bind('click', function(event) {
-            if (scope.multiple || 'A' != event.target.tagName) {
+            if ((scope.multiple && 'A' == event.target.tagName) || (!scope.multiple && 'A' != event.target.tagName)) {
               event.stopPropagation();
+            }
+            else {
+              var inSelection = false
+                , aTags = element.find('a');
+              for (var i = 0; i < aTags.length; i++) {
+                if ($(event.target).parents('a:first')[0] == aTags[i]) {
+                  inSelection = true;
+                  break;
+                }
+              }
+              if (scope.multiple && inSelection) {
+                $(event.target).parents('a').click();
+                event.stopPropagation();
+              }
             }
           });
           scope.eventHandlerIsBound = true;
