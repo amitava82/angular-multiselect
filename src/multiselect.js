@@ -1,3 +1,4 @@
+// Source: https://github.com/amitava82/angular-multiselect
 angular.module('ui.multiselect', [])
 
   //from bootstrap-ui typeahead parser
@@ -184,7 +185,9 @@ angular.module('ui.multiselect', [])
             if (!angular.isArray(newVal)) {
               angular.forEach(scope.items, function (item) {
                 if (angular.equals(item.model, newVal)) {
+                  scope.uncheckAll();
                   item.checked = true;
+                  setModelValue(false);
                   return false;
                 }
               });
