@@ -138,13 +138,13 @@ angular.module('ui.multiselect', [])
             } else {
               var local = {};
               local[parsedResult.itemName] = modelCtrl.$modelValue;
-              scope.header = parsedResult.viewMapper(local);
+              scope.header = parsedResult.viewMapper(local) || scope.items[modelCtrl.$modelValue].label;
             }
           }
           
           function is_empty(obj) {
-            if (!obj) return true;
-            if (obj.length && obj.length > 0) return false;
+            if (angular.isNumber(obj)) return false;
+            if (obj && obj.length && obj.length > 0) return false;
             for (var prop in obj) if (obj[prop]) return false;
             return true;
           };
