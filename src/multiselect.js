@@ -51,8 +51,10 @@ angular.module('ui.multiselect', [])
             scope.$destroy();
           });
 
-          var popUpEl = angular.element('<multiselect-popup></multiselect-popup>');
-
+          var popUpEl = angular.element('<multiselect-popup' + 
+                        (attrs.templateUrl ? (' template-url="' + attrs.templateUrl + '"'): '' ) + 
+                        '></multiselect-popup>');
+						
           //required validator
           if (attrs.required || attrs.ngRequired) {
             required = true;
@@ -243,7 +245,9 @@ angular.module('ui.multiselect', [])
       restrict: 'E',
       scope: false,
       replace: true,
-      templateUrl: 'multiselect.tmpl.html',
+      templateUrl: function (element, attr) {
+                return attr.templateUrl || 'multiselect.tmpl.html';
+        },
       link: function (scope, element, attrs) {
 
         scope.isVisible = false;
