@@ -51,7 +51,7 @@ angular.module('ui.multiselect', [])
             scope.$destroy();
           });
 
-          var popUpEl = angular.element('<multiselect-popup></multiselect-popup>');
+          var popUpEl = angular.element('<multiselect-popup multiple="'+scope.multiple+'"></multiselect-popup>');
 
           //required validator
           if (attrs.required || attrs.ngRequired) {
@@ -247,36 +247,59 @@ angular.module('ui.multiselect', [])
       link: function (scope, element, attrs) {
 
         scope.isVisible = false;
+        scope.eventHandlerIsBound = false;
+        scope.multiple = attrs.multiple ? true : false;
 
         scope.toggleSelect = function () {
           if (element.hasClass('open')) {
             element.removeClass('open');
-            $document.unbind('click', clickHandler);
           } else {
             element.addClass('open');
-            $document.bind('click', clickHandler);
+            scope.bindEventHandler();
+            scope.resize();
             scope.focus();
           }
         };
 
-        function clickHandler(event) {
-          if (elementMatchesAnyInArray(event.target, element.find(event.target.tagName)))
+        scope.bindEventHandler = function() {
+          if (scope.eventHandlerIsBound) {
             return;
-          element.removeClass('open');
-          $document.unbind('click', clickHandler);
-          scope.$apply();
+          }
+          element.find('ul, ul *').bind('click', function(event) {
+            if ((scope.multiple && 'A' == event.target.tagName) || (!scope.multiple && 'A' != event.target.tagName)) {
+              event.stopPropagation();
+            }
+            else {
+              var inSelection = false
+                , aTags = element.find('a');
+              for (var i = 0; i < aTags.length; i++) {
+                if ($(event.target).parents('a:first')[0] == aTags[i]) {
+                  inSelection = true;
+                  break;
+                }
+              }
+              if (scope.multiple && inSelection) {
+                $(event.target).parents('a').click();
+                event.stopPropagation();
+              }
+            }
+          });
+          scope.eventHandlerIsBound = true;
+        }
+
+        scope.resize = function() {
+          var $ul = element.find('ul')
+            , margin = 50
+            , top = $ul.position().top
+            , maxHeight = $(window).innerHeight();
+          if (($ul.height() + top) > maxHeight) {
+            $ul.css({height: (maxHeight - top - margin), overflow: 'scroll'});
+          }
         }
 
         scope.focus = function focus(){
           var searchBox = element.find('input')[0];
           searchBox.focus(); 
-        }
-
-        var elementMatchesAnyInArray = function (element, elementArray) {
-          for (var i = 0; i < elementArray.length; i++)
-            if (element == elementArray[i])
-              return true;
-          return false;
         }
       }
     }
