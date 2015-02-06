@@ -173,7 +173,7 @@ angular.module('ui.multiselect', [])
           }
 
           function setModelValue(isMultiple) {
-            var value;
+            var value = null;
 
             if (isMultiple) {
               value = [];
