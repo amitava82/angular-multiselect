@@ -273,7 +273,9 @@ angular.module('ui.multiselect', [])
 
         scope.focus = function focus(){
           var searchBox = element.find('input')[0];
-          searchBox.focus(); 
+          if (searchBox) {
+            searchBox.focus();
+          }
         }
 
         var elementMatchesAnyInArray = function (element, elementArray) {
