@@ -51,6 +51,7 @@ angular.module('ui.multiselect', [])
           scope.header = 'Select';
           scope.multiple = isMultiple;
           scope.disabled = false;
+          scope.onBlur = attrs.ngBlur || angular.noop;
 
           originalScope.$on('$destroy', function () {
             scope.$destroy();
@@ -261,6 +262,7 @@ angular.module('ui.multiselect', [])
           if (element.hasClass('open')) {
             element.removeClass('open');
             $document.unbind('click', clickHandler);
+            scope.$parent.$eval(scope.onBlur);
           } else {
             element.addClass('open');
             $document.bind('click', clickHandler);
@@ -269,11 +271,13 @@ angular.module('ui.multiselect', [])
         };
 
         function clickHandler(event) {
-          if (elementMatchesAnyInArray(event.target, element.find(event.target.tagName)))
-            return;
-          element.removeClass('open');
-          $document.unbind('click', clickHandler);
-          scope.$apply();
+          if (elementMatchesAnyInArray(event.target, element.find(event.target.tagName))) {
+          	scope.$parent.$eval(scope.onBlur);
+          } else {
+          	element.removeClass('open');
+          	$document.unbind('click', clickHandler);
+          	scope.$apply();
+          }
         }
 
         scope.focus = function focus(){
