@@ -34,6 +34,11 @@ angular.module('ui.multiselect', [])
         restrict: 'E',
         require: 'ngModel',
         link: function (originalScope, element, attrs, modelCtrl) {
+          //Redefine isEmpty - this allows this to work on at least Angular 1.2.x
+          var isEmpty = modelCtrl.$isEmpty;
+          modelCtrl.$isEmpty = function(value) {
+            return isEmpty(value) || (angular.isArray(value) && value.length == 0);
+          };
 
           var exp = attrs.options,
             parsedResult = optionParser.parse(exp),
