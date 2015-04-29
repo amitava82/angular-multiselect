@@ -262,7 +262,7 @@ angular.module('ui.multiselect', [])
           
           if( fileMatch ){
             filePath = currentScriptPath.slice(0, fileMatch.index);
-            break;i
+            break;
           }
           
         }
