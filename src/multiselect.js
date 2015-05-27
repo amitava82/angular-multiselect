@@ -265,11 +265,11 @@ angular.module('ui.multiselect', [])
         scope.toggleSelect = function () {
           if (element.hasClass('open')) {
             element.removeClass('open');
-            $document.unbind('click', clickHandler);
+            $document.unbind('touchstart click', clickHandler);
             scope.$parent.$eval(scope.onBlur);
           } else {
             element.addClass('open');
-            $document.bind('click', clickHandler);
+            $document.bind('touchstart click', clickHandler);
             scope.focus();
           }
         };
@@ -279,7 +279,7 @@ angular.module('ui.multiselect', [])
           	scope.$parent.$eval(scope.onBlur);
           } else {
           	element.removeClass('open');
-          	$document.unbind('click', clickHandler);
+          	$document.unbind('touchstart click', clickHandler);
           	scope.$apply();
           }
         }
