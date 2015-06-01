@@ -256,8 +256,23 @@ angular.module('ui.multiselect', [])
       scope: false,
       replace: true,
       templateUrl: function (element, attr) {
-                return attr.templateUrl || 'multiselect.tmpl.html';
-        },
+
+        var scripts = document.getElementsByTagName("script");
+        var filePath = '';
+        
+        for(var scriptKey in scripts){
+          var currentScriptPath = scripts[scriptKey].src;
+          var fileMatch = currentScriptPath.match('multiselect.js');
+          
+          if( fileMatch ){
+            filePath = currentScriptPath.slice(0, fileMatch.index);
+            break;
+          }
+          
+        }
+
+	return attr.templateUrl || filePath+'multiselect.tmpl.html';
+      },
       link: function (scope, element, attrs) {
 
         scope.isVisible = false;
