@@ -114,8 +114,8 @@ angular.module('ui.multiselect', [])
               var local = {};
               local[parsedResult.itemName] = model[i];
               scope.items.push({
-                label: parsedResult.viewMapper(local),
-                model: parsedResult.modelMapper(local),
+                label: parsedResult.viewMapper(originalScope, local),
+                model: parsedResult.modelMapper(originalScope, local),
                 checked: false
               });
             }
@@ -149,7 +149,8 @@ angular.module('ui.multiselect', [])
               }else{
                 var local = {};
                 local[parsedResult.itemName] = modelCtrl.$modelValue;
-                scope.header = parsedResult.viewMapper(local) || scope.items[modelCtrl.$modelValue].label;
+                scope.header = parsedResult.viewMapper(originalScope, local)
+                    || scope.items[modelCtrl.$modelValue].label;
               }
             }
           }
