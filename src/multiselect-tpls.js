@@ -47,6 +47,7 @@ angular.module('ui.multiselect', [
           scope.header = 'Select';
           scope.multiple = isMultiple;
           scope.disabled = false;
+          scope.placeholder = attrs.msPlaceholder || 'Filter';
 
           originalScope.$on('$destroy', function () {
             scope.$destroy();
@@ -284,7 +285,7 @@ angular.module('multiselect.tpl.html', [])
       "  </button>\n" +
       "  <ul class=\"dropdown-menu\">\n" +
       "    <li>\n" +
-      "      <input class=\"form-control input-sm\" type=\"text\" ng-model=\"searchText.label\" autofocus=\"autofocus\" placeholder=\"Filter\" />\n" +
+      "      <input class=\"form-control input-sm\" type=\"text\" ng-model=\"searchText.label\" autofocus=\"autofocus\" placeholder=\"{{placeholder}}\" />\n" +
       "    </li>\n" +
       "    <li ng-show=\"multiple\" role=\"presentation\" class=\"\">\n" +
       "      <button class=\"btn btn-link btn-xs\" ng-click=\"checkAll()\" type=\"button\"><i class=\"glyphicon glyphicon-ok\"></i> Check all</button>\n" +
