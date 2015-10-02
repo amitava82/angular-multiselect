@@ -1,0 +1,13 @@
+script:
+  - npm install -g gulp
+  - npm install gulp-clean
+  - npm install gulp-clean
+  - npm install gulp-watch
+  - npm install gulp-ngmin
+  - npm install gulp-jshint
+  - npm install gulp-lintspaces
+  - npm install jshint-summary
+  - npm install gulp-order
+  - npm install run-sequence
+
+script: gulp
