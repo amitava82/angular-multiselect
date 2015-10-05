@@ -22,7 +22,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/naga2raja/angular-multiselect.git"
+    "url": "git+https://github.com/amitava82/angular-multiselect.git"
   },
   "keywords": [
     "angular-multiselect",
@@ -37,7 +37,7 @@
   }],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/naga2raja/angular-multiselect/issues"
+    "url": "https://github.com/amitava82/angular-multiselect/issues"
   },
-  "homepage": "https://github.com/naga2raja/angular-multiselect#readme"
+  "homepage": "https://github.com/amitava82/angular-multiselect#readme"
 }
