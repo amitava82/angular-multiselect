@@ -1,5 +1,5 @@
 script:
-  - npm install -g gulp
+  - npm install gulp
   - npm install gulp-clean
   - npm install gulp-clean
   - npm install gulp-watch
