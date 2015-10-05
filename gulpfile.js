@@ -6,7 +6,7 @@
 */
 
 var gulp = require('gulp'),
-    clean = require('del'),
+    clean = require('gulp-clean'),
     watch = require('gulp-watch'),
     sequence = require('run-sequence'),
     minify = require('gulp-ngmin');
