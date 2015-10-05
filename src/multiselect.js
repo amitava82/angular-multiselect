@@ -1,5 +1,5 @@
 // Source: https://github.com/amitava82/angular-multiselect
-angular.module('ui.multiselect', [])
+ angular.module('ui.multiselect', [])
 
 // from bootstrap-ui typeahead parser
 .factory('optionParser', ['$parse', function ($parse) {
