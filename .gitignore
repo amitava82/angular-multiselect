@@ -1,0 +1,29 @@
+# Packages #
+############
+# Ignore if there is any compressed files
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Unwanted OS/Editors generated file #
+######################################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*~
+*.swp
+*.bak
+
+# Node Modules Directory #
+##########################
+/node_modules/*
+
