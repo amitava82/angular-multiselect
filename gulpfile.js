@@ -1,6 +1,7 @@
 /*
     Licenced Under MIT
     @file gulpfile.js
+    @author Nagaraja.T (github/naga2raja)
     @desc Buildfile for angular-multiselect
 */
 
