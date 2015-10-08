@@ -1,4 +1,3 @@
-
 angular.module('app', ['am.multiselect'])
 
 .controller('appCtrl', ['$scope', function($scope){
