@@ -26,11 +26,11 @@
     </div>
 
     Custom template:
-        <multiselect class="input-xlarge"
+        <am-multiselect class="input-xlarge"
         ng-model="selectedFruit"
         options="c.name for c in fruits"
         change="selected()"
-        template-url="dist/singleselect.tmpl.html"></multiselect>
+        template-url="dist/singleselect.tmpl.html"></am-multiselect>
         <div class="well well-small">
             {{selectedFruit}}
         </div> 
