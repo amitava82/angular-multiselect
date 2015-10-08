@@ -22,7 +22,7 @@ angular.module('ui.multiselect', ['multiselect.tpl.html'])
                 };
             }
         };
-    }]);
+    }])
 
     .directive('multiselect', ['$parse', '$document', '$compile', '$interpolate', 'optionParser',
 
