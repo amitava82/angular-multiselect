@@ -3,13 +3,26 @@ angular-multiselect
 
 Native AngularJS multiselect directive - Work in progress. Contributions welcome!
 
-Example: http://plnkr.co/edit/HjI2ZSFhf7BAV21KeGn3?p=preview
+Example: http://amitava82.github.io/angular-multiselect/
 
-Custom template example: http://plnkr.co/edit/MKhohf?p=preview
+Installation
+------------
+```
+npm install angular-multiselect
+```
+OR
+```
+bower install angular-multiselect
+```
+OR
+Include `multiselect.js` and `multiselect.tmpl.html` or `multiselect-tpls.js` (it has template included) from `dist` folder.
 
-Default selected example: http://plnkr.co/edit/7Ja3vewFP9M822pfk5uE?p=preview
+Usage
+-----
+Please look into the example.
 
 Please look into angularjs doc here https://code.angularjs.org/1.2.27/docs/api/ng/directive/select for options format (array data source)
 License
 =======
 The MIT License
+ 
