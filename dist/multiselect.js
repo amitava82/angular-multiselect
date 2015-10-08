@@ -1,5 +1,5 @@
 // Source: https://github.com/amitava82/angular-multiselect
-angular.module('ui.multiselect', [])
+angular.module('am.multiselect', [])
 
 // from bootstrap-ui typeahead parser
 .factory('optionParser', ['$parse', function ($parse) {
@@ -23,7 +23,7 @@ angular.module('ui.multiselect', [])
     };
 }])
 
-.directive('multiselect', ['$parse', '$document', '$compile', '$interpolate', 'optionParser',
+.directive('amMultiselect', ['$parse', '$document', '$compile', '$interpolate', 'optionParser',
 
     function ($parse, $document, $compile, $interpolate, optionParser) {
     return {
@@ -53,9 +53,9 @@ angular.module('ui.multiselect', [])
             scope.$destroy();
         });
 
-        var popUpEl = angular.element('<multiselect-popup' +
+        var popUpEl = angular.element('<am-multiselect-popup' +
             (attrs.templateUrl ? (' template-url="' + attrs.templateUrl + '"'): '' ) +
-            '></multiselect-popup>');
+            '></am-multiselect-popup>');
 
         // required validator
         if (attrs.required || attrs.ngRequired) {
@@ -245,7 +245,7 @@ angular.module('ui.multiselect', [])
     };
 }])
 
-.directive('multiselectPopup', ['$document', function ($document) {
+.directive('amMultiselectPopup', ['$document', function ($document) {
     return {
         restrict: 'E',
         scope: false,

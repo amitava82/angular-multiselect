@@ -1,4 +1,4 @@
-angular.module('app', ['ui.multiselect'])
+angular.module('app', ['am.multiselect'])
 
 .controller('appCtrl', ['$scope', function($scope){
     $scope.cars = [

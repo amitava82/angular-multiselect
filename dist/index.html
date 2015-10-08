@@ -9,18 +9,18 @@
 </head>
 <body ng-controller="appCtrl">
     <h1>Example</h1>
-    <multiselect class="input-lg" multiple="true" ms-selected ="There are {{selectedCar.length}} car(s) selected"
+    <am-multiselect class="input-lg" multiple="true" ms-selected ="There are {{selectedCar.length}} car(s) selected"
     ng-model="selectedCar" ms-header="Select Some Cars"
     options="c.name for c in cars"
-    change="selected()"></multiselect>
+    change="selected()"></am-multiselect>
     <div class="well well-sm">
         {{selectedCar}}
     </div>
     Single select:
-    <multiselect class="input-lg"
+    <am-multiselect class="input-lg"
     ng-model="selectedFruit"
     options="c.name for c in fruits"
-    change="selected()" ></multiselect>
+    change="selected()" ></am-multiselect>
     <div class="well well-sm">
         {{selectedFruit}}
     </div>

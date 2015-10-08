@@ -1,4 +1,4 @@
-angular.module('ui.multiselect', ['multiselect.tpl.html'])
+angular.module('am.multiselect', ['multiselect.tpl.html'])
 
     // from bootstrap-ui typeahead parser
     .factory('optionParser', ['$parse', function ($parse) {
@@ -24,7 +24,7 @@ angular.module('ui.multiselect', ['multiselect.tpl.html'])
         };
     }])
 
-    .directive('multiselect', ['$parse', '$document', '$compile', '$interpolate', 'optionParser',
+    .directive('amMultiselect', ['$parse', '$document', '$compile', '$interpolate', 'optionParser',
 
     function ($parse, $document, $compile, $interpolate, optionParser) {
         return {
@@ -48,7 +48,7 @@ angular.module('ui.multiselect', ['multiselect.tpl.html'])
                     scope.$destroy();
                 });
 
-                var popUpEl = angular.element('<multiselect-popup></multiselect-popup>');
+                var popUpEl = angular.element('<am-multiselect-popup></am-multiselect-popup>');
 
                 // required validator
                 if (attrs.required || attrs.ngRequired) {
@@ -225,7 +225,7 @@ angular.module('ui.multiselect', ['multiselect.tpl.html'])
     };
 }])
 
-.directive('multiselectPopup', ['$document', function ($document) {
+.directive('amMultiselectPopup', ['$document', function ($document) {
     return {
         restrict: 'E',
         scope: false,

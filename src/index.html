@@ -2,25 +2,25 @@
 <head>
     <title>Angular multiselect</title>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="multiselect.css">
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.min.js"></script>
     <script src="app.js"></script>
     <script src="multiselect.js"></script>
 </head>
 <body ng-controller="appCtrl">
     <h1>Example</h1>
-    <multiselect class="input-lg" multiple="true" ms-selected ="There are {{selectedCar.length}} car(s) selected"
+    <am-multiselect class="input-lg" multiple="true" ms-selected ="There are {{selectedCar.length}} car(s) selected"
     ng-model="selectedCar" ms-header="Select Some Cars"
     options="c.name for c in cars"
-    change="selected()"></multiselect>
+    change="selected()"></am-multiselect>
     <div class="well well-sm">
         {{selectedCar}}
     </div>
     Single select:
-    <multiselect class="input-lg"
+    <am-multiselect class="input-lg"
     ng-model="selectedFruit"
     options="c.name for c in fruits"
-    change="selected()" ></multiselect>
+    change="selected()" ></am-multiselect>
     <div class="well well-sm">
         {{selectedFruit}}
     </div>
