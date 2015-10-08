@@ -9,10 +9,14 @@ var gulp = require('gulp'),
     clean = require('gulp-clean'),
     watch = require('gulp-watch'),
     sequence = require('run-sequence'),
-    minify = require('gulp-ngmin');
+    mergeStream = require('merge-stream'),
+    concat = require('gulp-concat'),
+    minify = require('gulp-ngmin'),
     order = require('gulp-order'),
     jshint = require('gulp-jshint'),
     lintspaces = require("gulp-lintspaces"),
+    templateCache = require("gulp-angular-templatecache"),
+    angularFilesort = require("gulp-angular-filesort"),
     jshintsummary = require('jshint-summary'),
     lintspacesConfig = {
         indentation: 'spaces',
@@ -69,9 +73,23 @@ gulp.task('compress', function() {
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('js', function () {
+gulp.task('js', ['build-multiselect-tpls.js'], function () {
     return gulp.src('src/*.js')
         .pipe(gulp.dest('dist'));
+});
+
+gulp.task('build-multiselect-tpls.js', function () {
+    var templateJsStream =  gulp
+        .src('src/multiselect.tmpl.html')
+        .pipe(templateCache({ module: 'am.multiselect' }));
+
+    var combinedStream = mergeStream(templateJsStream, gulp.src('src/multiselect.js'));
+
+    combinedStream
+        .pipe(angularFilesort())
+        .pipe(concat('multiselect-tpls.js'))
+        .pipe(gulp.dest('dist'));
+
 });
 
 gulp.task('css', function () {
