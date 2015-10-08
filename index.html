@@ -1,0 +1,28 @@
+<html ng-app="app">
+<head>
+    <title>Angular multiselect</title>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//raw.githubusercontent.com/amitava82/angular-multiselect/master/dist/multiselect.css">
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.min.js"></script>
+    <script src="app.js"></script>
+    <script src="//raw.githubusercontent.com/amitava82/angular-multiselect/master/dist/multiselect-tpls.js"></script>
+</head>
+<body ng-controller="appCtrl">
+    <h1>Example</h1>
+    <am-multiselect class="input-lg" multiple="true" ms-selected ="There are {{selectedCar.length}} car(s) selected"
+    ng-model="selectedCar" ms-header="Select Some Cars"
+    options="c.name for c in cars"
+    change="selected()"></am-multiselect>
+    <div class="well well-sm">
+        {{selectedCar}}
+    </div>
+    Single select:
+    <am-multiselect class="input-lg"
+    ng-model="selectedFruit"
+    options="c.name for c in fruits"
+    change="selected()" ></am-multiselect>
+    <div class="well well-sm">
+        {{selectedFruit}}
+    </div>
+</body>
+</html>
