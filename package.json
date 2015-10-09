@@ -14,7 +14,11 @@
     "jshint-summary": "^0.4.0",
     "run-sequence": "^1.1.4",
     "gulp-concat": "^2.6.0",
-    "gulp-uglify": "^1.4.1"
+    "gulp-uglify": "^1.4.1",
+    "gulp-angular-filesort": "^1.1.1",
+    "gulp-angular-templatecache": "^1.7.0",
+    "gulp-concat": "^2.6.0",
+    "merge-stream": "^1.0.0"
   },
   "devDependencies": {},
   "scripts": {
@@ -31,10 +35,16 @@
     "angulajs-multiselect"
   ],
   "author": "amitava82 (github.com/amitava82)",
-  "contributors": [{
-    "name": "Nagaraja T",
-    "email": "naga2raja@gmail.com"
-  }],
+  "contributors": [
+    {
+      "name": "Nagaraja T",
+      "email": "naga2raja@gmail.com"
+    },
+    {
+      "name": "Zach Lysobey",
+      "email": "zlysobey@gmail.com"
+    }
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/amitava82/angular-multiselect/issues"
