@@ -23,12 +23,14 @@
     <am-multiselect class="input-lg" multiple="true" ms-selected ="There are {{selectedCar.length}} car(s) selected"
     ng-model="selectedCar" ms-header="Select Some Cars"
     options="c.name for c in cars"
+    template-url="dist/multiselect.tmpl.html"
     change="selected()"></am-multiselect>
     <div class="well well-sm">
         {{selectedCar}}
     </div>
     Single select:
     <am-multiselect class="input-lg"
+    template-url="dist/multiselect.tmpl.html"
     ng-model="selectedFruit"
     options="c.name for c in fruits"
     change="selected()" ></am-multiselect>
@@ -39,7 +41,7 @@
     Custom tmpl:
     <am-multiselect class="input-lg"
     ng-model="selectedList"
-    template-url="custom.tmpl.html"
+    template-url="dist/custom.tmpl.html"
     options="c.name for c in list"
     change="selected()" ></am-multiselect>
     <div class="well well-sm">
