@@ -25,15 +25,15 @@
         {{selectedFruit}}
     </div>
 
-    Custom template:
-        <am-multiselect class="input-xlarge"
-        ng-model="selectedFruit"
-        options="c.name for c in fruits"
-        change="selected()"
-        template-url="dist/singleselect.tmpl.html"></am-multiselect>
-        <div class="well well-small">
-            {{selectedFruit}}
-        </div> 
+    Custom tmpl:
+    <am-multiselect class="input-lg"
+    ng-model="selectedList"
+    template-url="custom.tmpl.html"
+    options="c.name for c in list"
+    change="selected()" ></am-multiselect>
+    <div class="well well-sm">
+        {{selectedList}}
+    </div>
 
 </body>
 </html>
