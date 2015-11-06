@@ -282,17 +282,14 @@ angular.module('ui.multiselect', [])
             $document.unbind('touchstart click', clickHandler);
             scope.$parent.$eval(scope.onBlur);
 
-            unsetBodyMinHeight();
           } else {
             element.addClass('open');
             $document.bind('touchstart click', clickHandler);
             scope.focus();
-
-            setBodyMinHeight( element.find('.dropdown-menu') );
           }
         };
 	
-	// ugly function to prevent dropdown overflow
+        // ugly function to prevent dropdown overflow
         function setBodyMinHeight(dropdownElement) {
             var dropdownOffsetY = dropdownElement.offset().top;
             var dropdownHeight = dropdownElement.height();
@@ -309,11 +306,13 @@ angular.module('ui.multiselect', [])
         function clickHandler(event) {
           if (elementMatchesAnyInArray(event.target, element.find(event.target.tagName))) {
           	scope.$parent.$eval(scope.onBlur);
+            setBodyMinHeight( element.find('.dropdown-menu') );
+
           } else {
-          	element.removeClass('open');
-          	$document.unbind('touchstart click', clickHandler);
-          	scope.$apply();
             unsetBodyMinHeight();
+          	element.removeClass('open');
+            $document.unbind('touchstart click', clickHandler);
+            scope.$apply();
           }
         }
 
