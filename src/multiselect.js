@@ -245,7 +245,7 @@ angular.module('am.multiselect', [])
     };
 }])
 
-.directive('amMultiselectPopup', ['$document', function ($document) {
+.directive('amMultiselectPopup', ['$document', '$filter', function ($document, $filter) {
     return {
         restrict: 'E',
         scope: false,
@@ -255,6 +255,7 @@ angular.module('am.multiselect', [])
         },
         link: function (scope, element, attrs) {
 
+            scope.selectedIndex = null;
             scope.isVisible = false;
 
             scope.toggleSelect = function () {
@@ -285,6 +286,28 @@ angular.module('am.multiselect', [])
                     searchBox.focus();
                 }
             }
+
+            scope.keypress = function (event) {
+                var list = $filter('filter')(scope.items, scope.searchText);
+
+                if(event.keyCode === 13){ // On enter
+                    if(list[scope.selectedIndex]){
+                        scope.select(list[scope.selectedIndex]); // (un)select item
+                    }
+                }else if(event.keyCode === 38){ // On arrow up
+                    scope.selectedIndex = scope.selectedIndex===null ? list.length-1 : scope.selectedIndex-1;
+                }else if(event.keyCode === 40){ // On arrow down
+                    scope.selectedIndex = scope.selectedIndex===null ? 0 : scope.selectedIndex+1;
+                }else{ // On any other key
+                    scope.selectedIndex = null;
+                }
+
+                if(scope.selectedIndex < 0){ // Select last in list
+                    scope.selectedIndex = list.length-1;
+                }else if(scope.selectedIndex > list.length-1){ // Set selection to first item in list
+                    scope.selectedIndex = 0;
+                }
+            };
 
             var elementMatchesAnyInArray = function (element, elementArray) {
                 for (var i = 0; i < elementArray.length; i++)
