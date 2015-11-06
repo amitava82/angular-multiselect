@@ -47,6 +47,7 @@ angular.module('ui.multiselect', [])
             scope = originalScope.$new(),
             changeHandler = attrs.change || angular.noop;
 
+          scope.model = null;
           scope.items = [];
           scope.header = 'Select';
           scope.multiple = isMultiple;
@@ -87,14 +88,19 @@ angular.module('ui.multiselect', [])
           scope.$watch(function () {
             return parsedResult.source(originalScope);
           }, function (newVal) {
-            if (angular.isDefined(newVal))
+            if (angular.isDefined(newVal)) {
               parseModel();
+              if (angular.isDefined(modelCtrl.$modelValue)) {
+                markChecked(modelCtrl.$modelValue);
+              }
+            }
           }, true);
 
           //watch model change
           scope.$watch(function () {
             return modelCtrl.$modelValue;
           }, function (newVal, oldVal) {
+            scope.model = newVal;
             //when directive initialize, newVal usually undefined. Also, if model value already set in the controller
             //for preselected list then we need to mark checked in our scope item. But we don't want to do this every time
             //model changes. We need to do this only if it is done outside directive scope, from controller, for example.
@@ -212,14 +218,22 @@ angular.module('ui.multiselect', [])
                 }
               });
             } else {
+              var found = [];
               angular.forEach(scope.items, function (item) {
                 item.checked = false;
                 angular.forEach(newVal, function (i) {
                   if (angular.equals(item.model, i)) {
                     item.checked = true;
+                    found.push(i);
                   }
                 });
               });
+              // remove unfound items
+              for(var i=0; i<newVal.length; i++) {
+                if(found.indexOf(newVal[i]) < 0) {
+                  newVal.splice(i--, 1);
+                }
+              }
             }
           }
 
@@ -267,12 +281,30 @@ angular.module('ui.multiselect', [])
             element.removeClass('open');
             $document.unbind('touchstart click', clickHandler);
             scope.$parent.$eval(scope.onBlur);
+
+            unsetBodyMinHeight();
           } else {
             element.addClass('open');
             $document.bind('touchstart click', clickHandler);
             scope.focus();
+
+            setBodyMinHeight( element.find('.dropdown-menu') );
           }
         };
+	
+	// ugly function to prevent dropdown overflow
+        function setBodyMinHeight(dropdownElement) {
+            var dropdownOffsetY = dropdownElement.offset().top;
+            var dropdownHeight = dropdownElement.height();
+
+            var calcMinHeight = dropdownOffsetY + dropdownHeight;
+
+            $('body').css('min-height', calcMinHeight+'px');
+        }
+        
+        function unsetBodyMinHeight() {
+            $('body').css('min-height', '');
+        }
 
         function clickHandler(event) {
           if (elementMatchesAnyInArray(event.target, element.find(event.target.tagName))) {
@@ -281,6 +313,7 @@ angular.module('ui.multiselect', [])
           	element.removeClass('open');
           	$document.unbind('touchstart click', clickHandler);
           	scope.$apply();
+            unsetBodyMinHeight();
           }
         }
 
