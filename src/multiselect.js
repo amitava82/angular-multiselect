@@ -292,7 +292,7 @@ angular.module('ui.multiselect', [])
         // ugly function to prevent dropdown overflow
         function setBodyMinHeight(dropdownElement) {
             var dropdownOffsetY = dropdownElement.offset().top;
-            var dropdownHeight = dropdownElement.height();
+            var dropdownHeight = dropdownElement.outerHeight();
 
             var calcMinHeight = dropdownOffsetY + dropdownHeight;
 
