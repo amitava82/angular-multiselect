@@ -294,7 +294,7 @@ angular.module('ui.multiselect', [])
             var dropdownOffsetY = dropdownElement.offset().top;
             var dropdownHeight = dropdownElement.outerHeight();
 
-            var calcMinHeight = dropdownOffsetY + dropdownHeight;
+            var calcMinHeight = dropdownOffsetY + dropdownHeight + 120;
 
             $('body').css('min-height', calcMinHeight+'px');
         }
