@@ -287,16 +287,17 @@ angular.module('am.multiselect', [])
                 }
             }
 
-            scope.keypress = function (event) {
-                var list = $filter('filter')(scope.items, scope.searchText);
+            scope.keydown = function (event) {
+                var list = $filter('filter')(scope.items, scope.searchText),
+                keyCode = (event.keyCode || event.which);
 
-                if(event.keyCode === 13){ // On enter
+                if(keyCode === 13){ // On enter
                     if(list[scope.selectedIndex]){
                         scope.select(list[scope.selectedIndex]); // (un)select item
                     }
-                }else if(event.keyCode === 38){ // On arrow up
+                }else if(keyCode === 38){ // On arrow up
                     scope.selectedIndex = scope.selectedIndex===null ? list.length-1 : scope.selectedIndex-1;
-                }else if(event.keyCode === 40){ // On arrow down
+                }else if(keyCode === 40){ // On arrow down
                     scope.selectedIndex = scope.selectedIndex===null ? 0 : scope.selectedIndex+1;
                 }else{ // On any other key
                     scope.selectedIndex = null;
@@ -319,4 +320,4 @@ angular.module('am.multiselect', [])
     }
 }]);
 
-angular.module("am.multiselect").run(["$templateCache", function($templateCache) {$templateCache.put("multiselect.tmpl.html","<div class=\"btn-group\">\r\n    <button type=\"button\" class=\"btn btn-default dropdown-toggle\" ng-click=\"toggleSelect()\" ng-disabled=\"disabled\" ng-class=\"{\'error\': !valid()}\">\r\n        {{header}}\r\n        <span class=\"caret\"></span>\r\n    </button>\r\n    <ul class=\"dropdown-menu\">\r\n        <li>\r\n            <input class=\"form-control input-sm\" type=\"text\" ng-model=\"searchText.label\" ng-keypress=\"keypress($event)\" autofocus=\"autofocus\" placeholder=\"Filter\" />\r\n        </li>\r\n        <li ng-show=\"multiple\" role=\"presentation\" class=\"\">\r\n            <button class=\"btn btn-link btn-xs\" ng-click=\"checkAll()\" type=\"button\"><i class=\"glyphicon glyphicon-ok\"></i> Check all</button>\r\n            <button class=\"btn btn-link btn-xs\" ng-click=\"uncheckAll()\" type=\"button\"><i class=\"glyphicon glyphicon-remove\"></i> Uncheck all</button>\r\n        </li>\r\n        <li ng-repeat=\"i in items | filter:searchText\" ng-class=\"{\'selected\': $index === selectedIndex}\">\r\n            <a ng-click=\"select(i); focus()\">\r\n            <i class=\'glyphicon\' ng-class=\"{\'glyphicon-ok\': i.checked, \'empty\': !i.checked}\"></i> {{i.label}}</a>\r\n        </li>\r\n    </ul>\r\n</div>\r\n");}]);
+angular.module("am.multiselect").run(["$templateCache", function($templateCache) {$templateCache.put("multiselect.tmpl.html","<div class=\"btn-group\">\r\n    <button type=\"button\" class=\"btn btn-default dropdown-toggle\" ng-click=\"toggleSelect()\" ng-disabled=\"disabled\" ng-class=\"{\'error\': !valid()}\">\r\n        {{header}}\r\n        <span class=\"caret\"></span>\r\n    </button>\r\n    <ul class=\"dropdown-menu\">\r\n        <li>\r\n            <input class=\"form-control input-sm\" type=\"text\" ng-model=\"searchText.label\" ng-keydown=\"keydown($event)\" autofocus=\"autofocus\" placeholder=\"Filter\" />\r\n        </li>\r\n        <li ng-show=\"multiple\" role=\"presentation\" class=\"\">\r\n            <button class=\"btn btn-link btn-xs\" ng-click=\"checkAll()\" type=\"button\"><i class=\"glyphicon glyphicon-ok\"></i> Check all</button>\r\n            <button class=\"btn btn-link btn-xs\" ng-click=\"uncheckAll()\" type=\"button\"><i class=\"glyphicon glyphicon-remove\"></i> Uncheck all</button>\r\n        </li>\r\n        <li ng-repeat=\"i in items | filter:searchText\" ng-class=\"{\'selected\': $index === selectedIndex}\">\r\n            <a ng-click=\"select(i); focus()\">\r\n            <i class=\'glyphicon\' ng-class=\"{\'glyphicon-ok\': i.checked, \'empty\': !i.checked}\"></i> {{i.label}}</a>\r\n        </li>\r\n    </ul>\r\n</div>\r\n");}]);

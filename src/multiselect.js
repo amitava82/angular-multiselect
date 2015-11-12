@@ -287,16 +287,17 @@ angular.module('am.multiselect', [])
                 }
             }
 
-            scope.keypress = function (event) {
-                var list = $filter('filter')(scope.items, scope.searchText);
+            scope.keydown = function (event) {
+                var list = $filter('filter')(scope.items, scope.searchText),
+                keyCode = (event.keyCode || event.which);
 
-                if(event.keyCode === 13){ // On enter
+                if(keyCode === 13){ // On enter
                     if(list[scope.selectedIndex]){
                         scope.select(list[scope.selectedIndex]); // (un)select item
                     }
-                }else if(event.keyCode === 38){ // On arrow up
+                }else if(keyCode === 38){ // On arrow up
                     scope.selectedIndex = scope.selectedIndex===null ? list.length-1 : scope.selectedIndex-1;
-                }else if(event.keyCode === 40){ // On arrow down
+                }else if(keyCode === 40){ // On arrow down
                     scope.selectedIndex = scope.selectedIndex===null ? 0 : scope.selectedIndex+1;
                 }else{ // On any other key
                     scope.selectedIndex = null;
