@@ -6,7 +6,7 @@
 */
 
 var gulp = require('gulp'),
-    clean = require('gulp-clean'),
+    del = require('del'),
     watch = require('gulp-watch'),
     sequence = require('run-sequence'),
     mergeStream = require('merge-stream'),
@@ -102,9 +102,8 @@ gulp.task('html', function () {
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('clean', function() {
-    return gulp.src(['dist'], {read: false})
-        .pipe(clean());
+gulp.task('clean', function(cb) {
+    return del(['dist']);
 });
 
 /*
