@@ -10,13 +10,9 @@
     "gulp-angular-filesort": "^1.1.1",
     "gulp-angular-templatecache": "^1.7.0",
     "gulp-concat": "^2.6.0",
-    "gulp-jshint": "^1.11.2",
     "gulp-lintspaces": "^0.3.1",
-    "gulp-ngmin": "^0.3.0",
-    "gulp-order": "^1.1.1",
     "gulp-uglify": "^1.4.1",
     "gulp-watch": "^4.3.5",
-    "jshint-summary": "^0.4.0",
     "merge-stream": "^1.0.0",
     "run-sequence": "^1.1.4"
   },

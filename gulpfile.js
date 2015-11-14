@@ -11,13 +11,9 @@ var gulp = require('gulp'),
     sequence = require('run-sequence'),
     mergeStream = require('merge-stream'),
     concat = require('gulp-concat'),
-    minify = require('gulp-ngmin'),
-    order = require('gulp-order'),
-    jshint = require('gulp-jshint'),
     lintspaces = require("gulp-lintspaces"),
     templateCache = require("gulp-angular-templatecache"),
     angularFilesort = require("gulp-angular-filesort"),
-    jshintsummary = require('jshint-summary'),
     lintspacesConfig = {
         indentation: 'spaces',
         spaces: 4,
@@ -49,28 +45,6 @@ gulp.task('whitespace', function() {
             'src/*.css'])
         .pipe(lintspaces(lintspacesConfig))
         .pipe(lintspaces.reporter());
-});
-
-/* For Future Use -- Currently not used */
-gulp.task('scripts', function() {
-    return gulp.src('src/*.js')
-        .pipe(order([
-            "app.js",
-            "multiselect.js",
-            "multiselect-tpls.js"]))
-        .pipe(jshint.reporter('jshint-summary', {
-            verbose: true,
-            reasonCol: 'cyan,bold',
-            codeCol: 'green'
-        }))
-        .pipe(gulp.dest('dist'));
-});
-
-/* For future use to compress */
-gulp.task('compress', function() {
-    return gulp.src('src/*.js')
-        .pipe(minify({dynamic: true}))
-        .pipe(gulp.dest('dist'));
 });
 
 gulp.task('js', ['build-multiselect-tpls.js'], function () {
