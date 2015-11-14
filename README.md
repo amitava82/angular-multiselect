@@ -14,7 +14,7 @@ npm install angular-multiselect
 ```
 OR
 ```
-bower install angular-multiselect
+bower install amitava82-angular-multiselect
 ```
 OR
 Include `multiselect.js` and `multiselect.tmpl.html` or `multiselect-tpls.js` (it has template included) from `dist` folder.
