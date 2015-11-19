@@ -3,7 +3,7 @@
         {{header}}
         <span class="caret"></span>
     </button>
-    <ul class="dropdown-menu">
+    <ul class="dropdown-menu" ng-if="isOpen">
         <li>
             <input class="form-control input-sm" type="text" ng-model="searchText.label" ng-keydown="keydown($event)" autofocus="autofocus" placeholder="Filter" />
         </li>

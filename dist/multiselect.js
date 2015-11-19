@@ -256,15 +256,17 @@ angular.module('am.multiselect', [])
         link: function (scope, element, attrs) {
 
             scope.selectedIndex = null;
-            scope.isVisible = false;
+            scope.isOpen = false;
 
             scope.toggleSelect = function () {
                 if (element.hasClass('open')) {
                     element.removeClass('open');
+                    scope.isOpen = false;
                     $document.unbind('click', clickHandler);
                     scope.$parent.$eval(scope.onBlur);
                 } else {
                     element.addClass('open');
+                    scope.isOpen = true;
                     $document.bind('click', clickHandler);
                     scope.focus();
                 }
@@ -275,6 +277,7 @@ angular.module('am.multiselect', [])
                     scope.$parent.$eval(scope.onBlur);
                 } else {
                     element.removeClass('open');
+                    scope.isOpen = false;
                     $document.unbind('click', clickHandler);
                     scope.$apply();
                 }
