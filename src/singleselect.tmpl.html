@@ -3,7 +3,7 @@
         <span class="pull-left">{{header}}</span>
         <span class="caret pull-right"></span>
     </button>
-    <ul class="dropdown-menu">
+    <ul class="dropdown-menu" ng-if="isOpen">
         <li ng-repeat="i in items | filter:searchText">
             <a ng-click="select(i); focus()">
             <i ng-class="{'icon-ok': i.checked, 'icon-empty': !i.checked}"></i>{{i.label}}</a>
