@@ -292,7 +292,7 @@ angular.module('am.multiselect', [])
 
             scope.keydown = function (event) {
                 var list = $filter('filter')(scope.items, scope.searchText);
-                keyCode = (event.keyCode || event.which);
+                var keyCode = (event.keyCode || event.which);
 
                 if(keyCode === 13){ // On enter
                     if(list[scope.selectedIndex]){
