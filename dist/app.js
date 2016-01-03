@@ -16,4 +16,7 @@ angular.module('app', ['am.multiselect'])
                         {id: 3, name: 'Banana: with some long story like there usual travel across the atlantic from south worm world to cold dizzy northern world.'}
                     ];
     $scope.selectedFruit = null;
+        $scope.OnSelectionChange = function(event){
+            console.log(event);
+        }
 }]);

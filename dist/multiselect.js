@@ -41,7 +41,8 @@ angular.module('am.multiselect', [])
                         isMultiple = attrs.multiple ? true : false,
                         required = false,
                         scope = originalScope.$new(),
-                        changeHandler = attrs.change || angular.noop;
+                        changeHandler = attrs.change || angular.noop,
+                        onChange = attrs.onchange || angular.noop;
 
                     scope.items = [];
                     scope.header = 'Select';
@@ -52,17 +53,16 @@ angular.module('am.multiselect', [])
                     scope.listCss = attrs.listCss ? attrs.listCss : null;
                     scope.listItemCss = attrs.listItemCss ? attrs.listItemCss : null;
 
-                    scope.getListCss=function(){
+                    scope.getListCss = function () {
                         var css = 'dropdown-menu';
-                        if(scope.listCss)
+                        if (scope.listCss)
                             css = css + ' ' + scope.listCss;
-                        return  css;
+                        return css;
                     };
 
-                    scope.getListItemCss=function(){
-                        return scope.listItemCss? scope.listItemCss:'';
+                    scope.getListItemCss = function () {
+                        return scope.listItemCss ? scope.listItemCss : '';
                     };
-
 
 
                     originalScope.$on('$destroy', function () {
@@ -190,11 +190,22 @@ angular.module('am.multiselect', [])
                             item.checked = !item.checked;
                         }
                         setModelValue(false);
+                        invokeOnChange(item);
+                    }
+
+                    function invokeOnChange(item) {
+                        scope.$eval(onChange, {
+                            event: {
+                                data: item.model,
+                                action: item.checked ? 'selected' : 'unselected'
+                            }
+                        });
                     }
 
                     function selectMultiple(item) {
                         item.checked = !item.checked;
                         setModelValue(true);
+                        invokeOnChange(item);
                     }
 
                     function setModelValue(isMultiple) {

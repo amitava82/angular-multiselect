@@ -17,7 +17,7 @@
 &lt;am-multiselect class="input-lg" multiple="true" ms-selected="There are {{selectedCar.length}} car(s) selected"
                 ng-model="selectedCar" ms-header="Select Some Cars"
                 options="c as c.name for c in cars" ms-id="id" list-css="fixed-width" list-item-css="word-wrapped"
-                change="selected()"> &lt;/am-multiselect>
+                change="selected()"  onchange="OnSelectionChange(event)"> &lt;/am-multiselect>
 
 
     With CSS:
@@ -40,7 +40,7 @@
 <am-multiselect class="input-lg" multiple="true" ms-selected="There are {{selectedCar.length}} car(s) selected"
                 ng-model="selectedCar" ms-header="Select Some Cars"
                 options="c as c.name for c in cars" ms-id="id" list-css="fixed-width" list-item-css="word-wrapped"
-                change="selected()"></am-multiselect>
+                change="selected()" onchange="OnSelectionChange(event)"></am-multiselect>
 <div class="well well-sm">
     {{selectedCar}}
 </div>
