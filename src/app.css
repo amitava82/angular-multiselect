@@ -1,0 +1,10 @@
+.fixed-width{
+    width: 150px;
+}
+
+am-multiselect .dropdown-menu > li > .word-wrapped
+{
+    word-wrap: break-word; !important;
+    word-break: break-all; !important;
+    white-space: normal; !important;
+}

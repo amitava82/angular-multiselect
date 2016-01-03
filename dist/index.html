@@ -1,28 +1,64 @@
 <html ng-app="app">
 <head>
     <title>Angular multiselect</title>
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link rel="stylesheet" href="multiselect.css">
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.min.js"></script>
+    <link rel="stylesheet" href="app.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script src="app.js"></script>
-    <script src="multiselect.js"></script>
+    <script src="multiselect-tpls.js"></script>
 </head>
 <body ng-controller="appCtrl">
-    <h1>Example</h1>
-    <am-multiselect class="input-lg" multiple="true" ms-selected ="There are {{selectedCar.length}} car(s) selected"
-    ng-model="selectedCar" ms-header="Select Some Cars"
-    options="c.name for c in cars"
-    change="selected()"></am-multiselect>
-    <div class="well well-sm">
-        {{selectedCar}}
-    </div>
-    Single select:
-    <am-multiselect class="input-lg"
-    ng-model="selectedFruit"
-    options="c.name for c in fruits"
-    change="selected()" ></am-multiselect>
-    <div class="well well-sm">
-        {{selectedFruit}}
-    </div>
+<h2>Example:Multiple selection with whole object selected items</h2>
+<p>
+    Long List item ( with or without word spacing) are wrapped into multi line.
+    Width are fixed to 150px.
+    <pre>
+&lt;am-multiselect class="input-lg" multiple="true" ms-selected="There are {{selectedCar.length}} car(s) selected"
+                ng-model="selectedCar" ms-header="Select Some Cars"
+                options="c as c.name for c in cars" ms-id="id" list-css="fixed-width" list-item-css="word-wrapped"
+                change="selected()"> &lt;/am-multiselect>
+
+
+    With CSS:
+    .fixed-width
+    {
+        width: 150px;
+    }
+
+    am-multiselect .dropdown-menu > li > .word-wrapped
+    {
+        word-wrap: break-word; !important;
+        word-break: break-all; !important;
+        white-space: normal; !important;
+    }
+
+
+</pre>
+
+</p>
+<am-multiselect class="input-lg" multiple="true" ms-selected="There are {{selectedCar.length}} car(s) selected"
+                ng-model="selectedCar" ms-header="Select Some Cars"
+                options="c as c.name for c in cars" ms-id="id" list-css="fixed-width" list-item-css="word-wrapped"
+                change="selected()"></am-multiselect>
+<div class="well well-sm">
+    {{selectedCar}}
+</div>
+<h2> Single select: with only display attribute as selected item.</h2>
+<p>
+
+    &lt;am-multiselect class="input-lg"
+                    ng-model="selectedFruit"
+                    options="c.name for c in fruits"
+                    change="selected()"> &lt;/am-multiselect>
+
+</p>
+<am-multiselect class="input-lg"
+                ng-model="selectedFruit"
+                options="c.name for c in fruits"
+                change="selected()"></am-multiselect>
+<div class="well well-sm">
+    {{selectedFruit}}
+</div>
 </body>
 </html>
