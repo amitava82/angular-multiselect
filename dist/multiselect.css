@@ -6,6 +6,7 @@ am-multiselect .dropdown-menu{
 am-multiselect .dropdown-menu > li > a {
     padding: 3px 10px;
     cursor:pointer;
+
 }
 
 am-multiselect .dropdown-menu > li.selected {

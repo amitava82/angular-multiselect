@@ -26,4 +26,5 @@ Thumbs.db
 # Node Modules Directory #
 ##########################
 /node_modules/*
+/bower_components/*
 

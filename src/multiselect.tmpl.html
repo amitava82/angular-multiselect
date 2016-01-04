@@ -3,7 +3,7 @@
         {{header}}
         <span class="caret"></span>
     </button>
-    <ul class="dropdown-menu">
+    <ul ng-class="getListCss()" ng-if="id">
         <li>
             <input class="form-control input-sm" type="text" ng-model="searchText.label" ng-keydown="keydown($event)" autofocus="autofocus" placeholder="Filter" />
         </li>
@@ -11,8 +11,21 @@
             <button class="btn btn-link btn-xs" ng-click="checkAll()" type="button"><i class="glyphicon glyphicon-ok"></i> Check all</button>
             <button class="btn btn-link btn-xs" ng-click="uncheckAll()" type="button"><i class="glyphicon glyphicon-remove"></i> Uncheck all</button>
         </li>
-        <li ng-repeat="i in items | filter:searchText" ng-class="{'selected': $index === selectedIndex}">
-            <a ng-click="select(i); focus()">
+        <li  ng-repeat="i in items | filter:searchText track by i.id" ng-class="{'selected': $index === selectedIndex}">
+            <a ng-click="select(i); focus()" ng-class="getListItemCss()">
+            <i class='glyphicon' ng-class="{'glyphicon-ok': i.checked, 'empty': !i.checked}"></i> {{i.label}}</a>
+        </li>
+    </ul>
+    <ul ng-class="getListCss()" ng-if="!id">
+        <li>
+            <input class="form-control input-sm" type="text" ng-model="searchText.label" ng-keydown="keydown($event)" autofocus="autofocus" placeholder="Filter" />
+        </li>
+        <li ng-show="multiple" role="presentation" class="">
+            <button class="btn btn-link btn-xs" ng-click="checkAll()" type="button"><i class="glyphicon glyphicon-ok"></i> Check all</button>
+            <button class="btn btn-link btn-xs" ng-click="uncheckAll()" type="button"><i class="glyphicon glyphicon-remove"></i> Uncheck all</button>
+        </li>
+        <li ng-repeat="i in items | filter:searchText track by $index" ng-class="{'selected': $index === selectedIndex}">
+            <a ng-click="select(i); focus()" ng-class="getListItemCss()">
             <i class='glyphicon' ng-class="{'glyphicon-ok': i.checked, 'empty': !i.checked}"></i> {{i.label}}</a>
         </li>
     </ul>
