@@ -23,9 +23,9 @@ angular.module('am.multiselect', [])
     };
 }])
 
-.directive('amMultiselect', ['$parse', '$document', '$compile', '$interpolate', 'optionParser',
+.directive('amMultiselect', ['$parse', '$document', '$compile', '$interpolate', '$filter', 'optionParser',
 
-    function ($parse, $document, $compile, $interpolate, optionParser) {
+    function ($parse, $document, $compile, $interpolate, $filter, optionParser) {
     return {
         restrict: 'E',
         require: 'ngModel',
@@ -220,14 +220,16 @@ angular.module('am.multiselect', [])
 
         scope.checkAll = function () {
             if (!isMultiple) return;
-            angular.forEach(scope.items, function (item) {
+            var items = (scope.searchText && scope.searchText.label.length > 0) ? $filter('filter')(scope.items, scope.searchText) : scope.items;
+            angular.forEach(items, function (item) {
                 item.checked = true;
             });
             setModelValue(true);
         };
 
         scope.uncheckAll = function () {
-            angular.forEach(scope.items, function (item) {
+            var items = (scope.searchText && scope.searchText.label.length > 0) ? $filter('filter')(scope.items, scope.searchText) : scope.items;
+            angular.forEach(items, function (item) {
                 item.checked = false;
             });
             setModelValue(true);
@@ -257,6 +259,7 @@ angular.module('am.multiselect', [])
 
             scope.selectedIndex = null;
             scope.isVisible = false;
+            scope.filteredItems = null;
 
             scope.toggleSelect = function () {
                 if (element.hasClass('open')) {
@@ -288,8 +291,8 @@ angular.module('am.multiselect', [])
             }
 
             scope.keydown = function (event) {
-                var list = $filter('filter')(scope.items, scope.searchText),
-                keyCode = (event.keyCode || event.which);
+                var list = $filter('filter')(scope.items, scope.searchText);
+                var keyCode = (event.keyCode || event.which);
 
                 if(keyCode === 13){ // On enter
                     if(list[scope.selectedIndex]){
