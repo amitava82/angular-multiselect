@@ -1,7 +1,7 @@
 {
   "name": "amitava82/angular-multiselect",
   "version": "1.0.0",
-  "main": "src/multiselect.js",
+  "main": "dist/multiselect-tpls.js",
   "description": "Native AngularJS multiselect directive",
   "license": "MIT",
   "ignore": [
