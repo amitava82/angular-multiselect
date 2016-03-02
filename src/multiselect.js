@@ -122,7 +122,7 @@ angular.module('am.multiselect', [])
         element.append($compile(popUpEl)(scope));
 
         function getHeaderText() {
-            if (is_empty(modelCtrl.$modelValue)) return scope.header = attrs.msHeader || 'Select';
+            if (is_empty(modelCtrl.$modelValue)) return scope.header = (attrs.msHeader!==undefined ? attrs.msHeader : 'Select');
 
             if (isMultiple) {
                 if (attrs.msSelected) {
