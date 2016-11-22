@@ -152,7 +152,7 @@ angular.module('am.multiselect', [])
                 } else {
                     var local = {};
                     local[parsedResult.itemName] = modelCtrl.$modelValue;
-                    scope.header = parsedResult.viewMapper(local) || scope.items[modelCtrl.$modelValue].label;
+                    scope.header = parsedResult.viewMapper(local) || getItemLabel(scope.items,modelCtrl.$modelValue);
                 }
             }
         }
