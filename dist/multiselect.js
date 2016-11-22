@@ -121,6 +121,14 @@ angular.module('am.multiselect', [])
 
         element.append($compile(popUpEl)(scope));
 
+		function getItemLabel(items,model) {
+          for(var i = 0; i < items.length; i++) {
+            if(items[i].model==model) {
+              return items[i].label;
+            }
+          }
+        }
+		
         function getHeaderText() {
             if (is_empty(modelCtrl.$modelValue)) return scope.header = (attrs.msHeader!==undefined ? attrs.msHeader : 'Select');
 
@@ -140,7 +148,7 @@ angular.module('am.multiselect', [])
                 }
             } else {
                 if(angular.isString(modelCtrl.$modelValue)){
-                    scope.header = modelCtrl.$modelValue;
+                    scope.header = getItemLabel(scope.items,modelCtrl.$modelValue);
                 } else {
                     var local = {};
                     local[parsedResult.itemName] = modelCtrl.$modelValue;
