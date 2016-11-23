@@ -1,4 +1,9 @@
 // Source: https://github.com/amitava82/angular-multiselect
+
+// getting the path of the multiselect.js file
+var scripts = document.getElementsByTagName("script")
+var currentScriptPath = scripts[scripts.length-1].src;
+
 angular.module('am.multiselect', [])
 
 // from bootstrap-ui typeahead parser
@@ -261,7 +266,8 @@ angular.module('am.multiselect', [])
         scope: false,
         replace: true,
         templateUrl: function (element, attr) {
-            return attr.templateUrl || 'multiselect.tmpl.html';
+			// multiselect.tmpl.html path relative to multiselect.js
+            return attr.templateUrl || currentScriptPath.substring(0, currentScriptPath.lastIndexOf('/') + 1) + 'multiselect.tmpl.html';
         },
         link: function (scope, element, attrs) {
 
