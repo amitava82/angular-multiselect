@@ -44,6 +44,7 @@ angular.module('am.multiselect', [])
         var exp = attrs.options,
         parsedResult = optionParser.parse(exp),
         isMultiple = attrs.multiple ? true : false,
+		isHover = attrs.hover ? true : false,
         required = false,
         scope = originalScope.$new(),
         changeHandler = attrs.change || angular.noop;
@@ -53,6 +54,7 @@ angular.module('am.multiselect', [])
         scope.multiple = isMultiple;
         scope.disabled = false;
         scope.onBlur = attrs.ngBlur || angular.noop;
+		scope.hoverText = isHover ? scope.header : '';
 
         originalScope.$on('$destroy', function () {
             scope.$destroy();
@@ -104,6 +106,7 @@ angular.module('am.multiselect', [])
                 scope.$eval(changeHandler);
             }
             getHeaderText();
+			scope.hoverText = isHover ? scope.header : '';
             modelCtrl.$setValidity('required', scope.valid());
         }, true);
 
