@@ -98,10 +98,16 @@ angular.module('am.multiselect', [])
         scope.$watch(function () {
             return modelCtrl.$modelValue;
         }, function (newVal, oldVal) {
+        // When the model is assigned a "" or undefined value from controller, need to uncheck all items and clear searchText.label
+            if(!angular.isDefined(newVal) || newVal==="") {
+              scope.uncheckAll();
+              if(angular.isDefined(scope.searchText))
+                scope.searchText.label="";
+            }
         // when directive initialize, newVal usually undefined. Also, if model value already set in the controller
         // for preselected list then we need to mark checked in our scope item. But we don't want to do this every time
         // model changes. We need to do this only if it is done outside directive scope, from controller, for example.
-            if (angular.isDefined(newVal)) {
+            else if (angular.isDefined(newVal)) {
                 markChecked(newVal);
                 scope.$eval(changeHandler);
             }
