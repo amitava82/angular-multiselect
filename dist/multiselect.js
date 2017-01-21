@@ -250,8 +250,9 @@ angular.module('am.multiselect', [])
         };
 
         scope.uncheckAll = function () {
-            var items = (scope.searchText && scope.searchText.label.length > 0) ? $filter('filter')(scope.items, scope.searchText) : scope.items;
-            angular.forEach(items, function (item) {
+			// need to uncheck from the entire list of items. If user filers with ine text and selects item A. Next time user fileters and selects item B (item A now not in the filtered set). The item A will not get unchecked
+            // var items = (scope.searchText && scope.searchText.label.length > 0) ? $filter('filter')(scope.items, scope.searchText) : scope.items;
+            angular.forEach(scope.items, function (item) {
                 item.checked = false;
             });
             setModelValue(true);
