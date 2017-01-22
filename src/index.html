@@ -19,7 +19,8 @@
     Single select:
     <am-multiselect class="input-lg"
     ng-model="selectedFruit"
-    options="c.name for c in fruits"
+	hover="true"
+    options="c.id as c.name for c in fruits"
     change="selected()" ></am-multiselect>
     <div class="well well-sm">
         {{selectedFruit}}

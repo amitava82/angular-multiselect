@@ -1,4 +1,9 @@
 // Source: https://github.com/amitava82/angular-multiselect
+
+// getting the path of the multiselect.js file
+var scripts = document.getElementsByTagName("script")
+var currentScriptPath = scripts[scripts.length-1].src;
+
 angular.module('am.multiselect', [])
 
 // from bootstrap-ui typeahead parser
@@ -39,6 +44,7 @@ angular.module('am.multiselect', [])
         var exp = attrs.options,
         parsedResult = optionParser.parse(exp),
         isMultiple = attrs.multiple ? true : false,
+		isHover = attrs.hover ? true : false,
         required = false,
         scope = originalScope.$new(),
         changeHandler = attrs.change || angular.noop;
@@ -48,6 +54,7 @@ angular.module('am.multiselect', [])
         scope.multiple = isMultiple;
         scope.disabled = false;
         scope.onBlur = attrs.ngBlur || angular.noop;
+		scope.hoverText = isHover ? scope.header : '';
 
         originalScope.$on('$destroy', function () {
             scope.$destroy();
@@ -91,14 +98,21 @@ angular.module('am.multiselect', [])
         scope.$watch(function () {
             return modelCtrl.$modelValue;
         }, function (newVal, oldVal) {
+        // When the model is assigned a "" or undefined value from controller, need to uncheck all items and clear searchText.label
+            if(!angular.isDefined(newVal) || newVal==="") {
+              scope.uncheckAll();
+              if(angular.isDefined(scope.searchText))
+                scope.searchText.label="";
+            }
         // when directive initialize, newVal usually undefined. Also, if model value already set in the controller
         // for preselected list then we need to mark checked in our scope item. But we don't want to do this every time
         // model changes. We need to do this only if it is done outside directive scope, from controller, for example.
-            if (angular.isDefined(newVal)) {
+            else if (angular.isDefined(newVal)) {
                 markChecked(newVal);
                 scope.$eval(changeHandler);
             }
             getHeaderText();
+			scope.hoverText = isHover ? scope.header : '';
             modelCtrl.$setValidity('required', scope.valid());
         }, true);
 
@@ -121,6 +135,14 @@ angular.module('am.multiselect', [])
 
         element.append($compile(popUpEl)(scope));
 
+		function getItemLabel(items,model) {
+          for(var i = 0; i < items.length; i++) {
+            if(items[i].model==model) {
+              return items[i].label;
+            }
+          }
+        }
+		
         function getHeaderText() {
             if (is_empty(modelCtrl.$modelValue)) return scope.header = (attrs.msHeader!==undefined ? attrs.msHeader : 'Select');
 
@@ -140,11 +162,11 @@ angular.module('am.multiselect', [])
                 }
             } else {
                 if(angular.isString(modelCtrl.$modelValue)){
-                    scope.header = modelCtrl.$modelValue;
+                    scope.header = getItemLabel(scope.items,modelCtrl.$modelValue);
                 } else {
                     var local = {};
                     local[parsedResult.itemName] = modelCtrl.$modelValue;
-                    scope.header = parsedResult.viewMapper(local) || scope.items[modelCtrl.$modelValue].label;
+                    scope.header = parsedResult.viewMapper(local) || getItemLabel(scope.items,modelCtrl.$modelValue);
                 }
             }
         }
@@ -228,11 +250,13 @@ angular.module('am.multiselect', [])
         };
 
         scope.uncheckAll = function () {
-            var items = (scope.searchText && scope.searchText.label.length > 0) ? $filter('filter')(scope.items, scope.searchText) : scope.items;
-            angular.forEach(items, function (item) {
+			// need to uncheck from the entire list of items. If user filers with ine text and selects item A. Next time user fileters and selects item B (item A now not in the filtered set). The item A will not get unchecked
+            // var items = (scope.searchText && scope.searchText.label.length > 0) ? $filter('filter')(scope.items, scope.searchText) : scope.items;
+            angular.forEach(scope.items, function (item) {
                 item.checked = false;
             });
-            setModelValue(true);
+			// sending scope.multiple instead of true to setModelValue. Since different values geeting set when single and multiple.
+            setModelValue(scope.multiple);
         };
 
         scope.select = function (item) {
@@ -253,7 +277,8 @@ angular.module('am.multiselect', [])
         scope: false,
         replace: true,
         templateUrl: function (element, attr) {
-            return attr.templateUrl || 'multiselect.tmpl.html';
+			// multiselect.tmpl.html path relative to multiselect.js
+            return attr.templateUrl || currentScriptPath.substring(0, currentScriptPath.lastIndexOf('/') + 1) + 'multiselect.tmpl.html';
         },
         link: function (scope, element, attrs) {
 
