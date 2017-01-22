@@ -255,7 +255,8 @@ angular.module('am.multiselect', [])
             angular.forEach(scope.items, function (item) {
                 item.checked = false;
             });
-            setModelValue(true);
+			// sending scope.multiple instead of true to setModelValue. Since different values geeting set when single and multiple.
+            setModelValue(scope.multiple);
         };
 
         scope.select = function (item) {
