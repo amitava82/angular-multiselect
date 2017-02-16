@@ -228,7 +228,7 @@ angular.module('am.multiselect', [])
         };
 
         scope.uncheckAll = function () {
-            var items = (scope.searchText && scope.searchText.label.length > 0) ? $filter('filter')(scope.items, scope.searchText) : scope.items;
+            var items = (isMultiple && scope.searchText && scope.searchText.label.length > 0) ? $filter('filter')(scope.items, scope.searchText) : scope.items;
             angular.forEach(items, function (item) {
                 item.checked = false;
             });
