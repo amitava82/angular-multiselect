@@ -84,7 +84,11 @@ angular.module('am.multiselect', [])
             return parsedResult.source(originalScope);
         }, function (newVal) {
         if (angular.isDefined(newVal))
-            parseModel();
+		{
+			parseModel();
+			//if options model is loaded after the selectedModel need to recheck the options.
+			markChecked(modelCtrl.$modelValue);
+		}
         }, true);
 
         // watch model change
