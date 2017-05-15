@@ -1,4 +1,5 @@
 // Source: https://github.com/amitava82/angular-multiselect
+
 angular.module('am.multiselect', [])
 
 // from bootstrap-ui typeahead parser
@@ -39,6 +40,7 @@ angular.module('am.multiselect', [])
         var exp = attrs.options,
         parsedResult = optionParser.parse(exp),
         isMultiple = attrs.multiple ? true : false,
+		isHover = attrs.hover ? true : false,
         required = false,
         scope = originalScope.$new(),
         changeHandler = attrs.change || angular.noop;
@@ -48,6 +50,7 @@ angular.module('am.multiselect', [])
         scope.multiple = isMultiple;
         scope.disabled = false;
         scope.onBlur = attrs.ngBlur || angular.noop;
+		scope.hoverText = isHover ? scope.header : '';
 
         originalScope.$on('$destroy', function () {
             scope.$destroy();
@@ -90,22 +93,29 @@ angular.module('am.multiselect', [])
         // watch model change
         scope.$watch(function () {
             return modelCtrl.$modelValue;
-        }, function (newVal, oldVal) {
+        }, function (newVal) {
+        // When the model is assigned a "" or undefined value from controller, need to uncheck all items and clear searchText.label
+            if(angular.isUndefined(newVal) || newVal==="") {
+              scope.uncheckAll();
+              if(angular.isDefined(scope.searchText))
+                scope.searchText.label="";
+            }
         // when directive initialize, newVal usually undefined. Also, if model value already set in the controller
         // for preselected list then we need to mark checked in our scope item. But we don't want to do this every time
         // model changes. We need to do this only if it is done outside directive scope, from controller, for example.
-            if (angular.isDefined(newVal)) {
+            else if (angular.isDefined(newVal)) {
                 markChecked(newVal);
                 scope.$eval(changeHandler);
             }
             getHeaderText();
+			scope.hoverText = isHover ? scope.header : '';
             modelCtrl.$setValidity('required', scope.valid());
         }, true);
 
         function parseModel() {
             scope.items.length = 0;
             var model = parsedResult.source(originalScope);
-            if(!angular.isDefined(model)) return;
+            if(angular.isUndefined(model)) return;
             for (var i = 0; i < model.length; i++) {
                 var local = {};
                 local[parsedResult.itemName] = model[i];
@@ -121,8 +131,16 @@ angular.module('am.multiselect', [])
 
         element.append($compile(popUpEl)(scope));
 
+		function getItemLabel(items,model) {
+          for(var i = 0; i < items.length; i++) {
+            if(items[i].model==model) {
+              return items[i].label;
+            }
+          }
+        }
+
         function getHeaderText() {
-            if (is_empty(modelCtrl.$modelValue)) return scope.header = (attrs.msHeader!==undefined ? attrs.msHeader : 'Select');
+            if (is_empty(modelCtrl.$modelValue)) return scope.header = (angular.isDefined(attrs.msHeader) ? attrs.msHeader : 'Select');
 
             if (isMultiple) {
                 if (attrs.msSelected) {
@@ -140,11 +158,11 @@ angular.module('am.multiselect', [])
                 }
             } else {
                 if(angular.isString(modelCtrl.$modelValue)){
-                    scope.header = modelCtrl.$modelValue;
+                    scope.header = getItemLabel(scope.items,modelCtrl.$modelValue);
                 } else {
                     var local = {};
                     local[parsedResult.itemName] = modelCtrl.$modelValue;
-                    scope.header = parsedResult.viewMapper(local) || scope.items[modelCtrl.$modelValue].label;
+                    scope.header = parsedResult.viewMapper(local) || getItemLabel(scope.items,modelCtrl.$modelValue);
                 }
             }
         }
@@ -154,7 +172,7 @@ angular.module('am.multiselect', [])
             if (obj && obj.length && obj.length > 0) return false;
             for (var prop in obj) if (obj[prop]) return false;
                 return true;
-        };
+        }
 
         scope.valid = function validModel() {
             if(!required) return true;
@@ -228,11 +246,13 @@ angular.module('am.multiselect', [])
         };
 
         scope.uncheckAll = function () {
-            var items = (scope.searchText && scope.searchText.label.length > 0) ? $filter('filter')(scope.items, scope.searchText) : scope.items;
-            angular.forEach(items, function (item) {
+			// need to uncheck from the entire list of items. If user filers with ine text and selects item A. Next time user fileters and selects item B (item A now not in the filtered set). The item A will not get unchecked
+            // var items = (scope.searchText && scope.searchText.label.length > 0) ? $filter('filter')(scope.items, scope.searchText) : scope.items;
+            angular.forEach(scope.items, function (item) {
                 item.checked = false;
             });
-            setModelValue(true);
+			// sending scope.multiple instead of true to setModelValue. Since different values geeting set when single and multiple.
+            setModelValue(scope.multiple);
         };
 
         scope.select = function (item) {
@@ -252,10 +272,8 @@ angular.module('am.multiselect', [])
         restrict: 'E',
         scope: false,
         replace: true,
-        templateUrl: function (element, attr) {
-            return attr.templateUrl || 'multiselect.tmpl.html';
-        },
-        link: function (scope, element, attrs) {
+        templateUrl: 'html/multiselect.tmpl.html',
+        link: function (scope, element) {
 
             scope.selectedIndex = null;
             scope.isVisible = false;
@@ -322,5 +340,3 @@ angular.module('am.multiselect', [])
         }
     }
 }]);
-
-angular.module("am.multiselect").run(["$templateCache", function($templateCache) {$templateCache.put("multiselect.tmpl.html","<div class=\"btn-group\">\n    <button type=\"button\" class=\"btn btn-default dropdown-toggle\" ng-click=\"toggleSelect()\" ng-disabled=\"disabled\" ng-class=\"{\'error\': !valid()}\">\n        {{header}}\n        <span class=\"caret\"></span>\n    </button>\n    <ul class=\"dropdown-menu\">\n        <li>\n            <input class=\"form-control input-sm\" type=\"text\" ng-model=\"searchText.label\" ng-keydown=\"keydown($event)\" autofocus=\"autofocus\" placeholder=\"Filter\" />\n        </li>\n        <li ng-show=\"multiple\" role=\"presentation\" class=\"\">\n            <button class=\"btn btn-link btn-xs\" ng-click=\"checkAll()\" type=\"button\"><i class=\"glyphicon glyphicon-ok\"></i> Check all</button>\n            <button class=\"btn btn-link btn-xs\" ng-click=\"uncheckAll()\" type=\"button\"><i class=\"glyphicon glyphicon-remove\"></i> Uncheck all</button>\n        </li>\n        <li ng-repeat=\"i in items | filter:searchText\" ng-class=\"{\'selected\': $index === selectedIndex}\">\n            <a ng-click=\"select(i); focus()\">\n            <i class=\'glyphicon\' ng-class=\"{\'glyphicon-ok\': i.checked, \'empty\': !i.checked}\"></i> {{i.label}}</a>\n        </li>\n    </ul>\n</div>\n");}]);

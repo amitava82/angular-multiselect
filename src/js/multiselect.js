@@ -1,9 +1,5 @@
 // Source: https://github.com/amitava82/angular-multiselect
 
-// getting the path of the multiselect.js file
-var scripts = document.getElementsByTagName("script")
-var currentScriptPath = scripts[scripts.length-1].src;
-
 angular.module('am.multiselect', [])
 
 // from bootstrap-ui typeahead parser
@@ -97,9 +93,9 @@ angular.module('am.multiselect', [])
         // watch model change
         scope.$watch(function () {
             return modelCtrl.$modelValue;
-        }, function (newVal, oldVal) {
+        }, function (newVal) {
         // When the model is assigned a "" or undefined value from controller, need to uncheck all items and clear searchText.label
-            if(!angular.isDefined(newVal) || newVal==="") {
+            if(angular.isUndefined(newVal) || newVal==="") {
               scope.uncheckAll();
               if(angular.isDefined(scope.searchText))
                 scope.searchText.label="";
@@ -119,7 +115,7 @@ angular.module('am.multiselect', [])
         function parseModel() {
             scope.items.length = 0;
             var model = parsedResult.source(originalScope);
-            if(!angular.isDefined(model)) return;
+            if(angular.isUndefined(model)) return;
             for (var i = 0; i < model.length; i++) {
                 var local = {};
                 local[parsedResult.itemName] = model[i];
@@ -142,9 +138,9 @@ angular.module('am.multiselect', [])
             }
           }
         }
-		
+
         function getHeaderText() {
-            if (is_empty(modelCtrl.$modelValue)) return scope.header = (attrs.msHeader!==undefined ? attrs.msHeader : 'Select');
+            if (is_empty(modelCtrl.$modelValue)) return scope.header = (angular.isDefined(attrs.msHeader) ? attrs.msHeader : 'Select');
 
             if (isMultiple) {
                 if (attrs.msSelected) {
@@ -176,7 +172,7 @@ angular.module('am.multiselect', [])
             if (obj && obj.length && obj.length > 0) return false;
             for (var prop in obj) if (obj[prop]) return false;
                 return true;
-        };
+        }
 
         scope.valid = function validModel() {
             if(!required) return true;
@@ -276,11 +272,8 @@ angular.module('am.multiselect', [])
         restrict: 'E',
         scope: false,
         replace: true,
-        templateUrl: function (element, attr) {
-			// multiselect.tmpl.html path relative to multiselect.js
-            return attr.templateUrl || currentScriptPath.substring(0, currentScriptPath.lastIndexOf('/') + 1) + 'multiselect.tmpl.html';
-        },
-        link: function (scope, element, attrs) {
+        templateUrl: 'html/multiselect.tmpl.html',
+        link: function (scope, element) {
 
             scope.selectedIndex = null;
             scope.isVisible = false;

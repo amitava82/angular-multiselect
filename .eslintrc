@@ -1,0 +1,11 @@
+{
+  "env": {
+    "es6": true,
+    "browser": true
+  },
+  "extends": ["eslint:recommended", "angular"],
+  "rules": {
+    "no-console": ["error", { allow: ["warn", "error"] }],
+    "angular/di": [2, "array"]
+  }
+}

@@ -1,29 +1,54 @@
+<!DOCTYPE html>
 <html ng-app="app">
-<head>
+  <head>
+      <!-- build:css css/lib.css -->
+      <!-- bower:css -->
+      <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />
+      <!-- endbower -->
+      <!-- endbuild -->
+
+      <!-- build:css css/app.css -->
+      <!-- inject:css -->
+      <link rel="stylesheet" href="css/multiselect.css">
+      <!-- endinject -->
+      <!-- endbuild -->
+
     <title>Angular multiselect</title>
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="multiselect.css">
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.min.js"></script>
-    <script src="app.js"></script>
-    <script src="multiselect.js"></script>
-</head>
-<body ng-controller="appCtrl">
-    <h1>Example</h1>
-    <am-multiselect class="input-lg" multiple="true" ms-selected ="There are {{selectedCar.length}} car(s) selected"
-    ng-model="selectedCar" ms-header="Select Some Cars"
-    options="c.name for c in cars"
-    change="selected()"></am-multiselect>
-    <div class="well well-sm">
-        {{selectedCar}}
-    </div>
-    Single select:
-    <am-multiselect class="input-lg"
-    ng-model="selectedFruit"
-	hover="true"
-    options="c.id as c.name for c in fruits"
-    change="selected()" ></am-multiselect>
-    <div class="well well-sm">
-        {{selectedFruit}}
-    </div>
-</body>
+
+  </head>
+  <body ng-controller="appCtrl as vm">
+      <h1>Example</h1>
+      <am-multiselect class="input-lg" multiple="true" ms-selected ="There are {{vm.selectedCar.length}} car(s) selected"
+      ng-model="vm.selectedCar" ms-header="Select Some Cars"
+      options="c.name for c in vm.cars"
+      change="vm.selected()"></am-multiselect>
+      <div class="well well-sm">
+          {{vm.selectedCar}}
+      </div>
+      Single select:
+      <am-multiselect class="input-lg"
+      ng-model="vm.selectedFruit"
+      hover="true"
+      options="c.id as c.name for c in vm.fruits"
+      change="vm.selected()" ></am-multiselect>
+      <div class="well well-sm">
+          {{vm.selectedFruit}}
+      </div>
+
+    <!-- build:js js/lib.js -->
+    <!-- bower:js -->
+    <script src="lib/angular/angular.js"></script>
+    <script src="lib/jquery/dist/jquery.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:js js/app.js -->
+    <!-- inject:js -->
+    <script src="js/app.js"></script>
+    <script src="js/multiselect.js"></script>
+    <!-- endinject -->
+    <!-- inject:templates:js -->
+    <!-- endinject -->
+    <!-- endbuild -->
+  </body>
 </html>

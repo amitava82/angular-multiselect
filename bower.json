@@ -1,7 +1,7 @@
 {
-  "name": "amitava82-angular-multiselect",
-  "version": "1.2.0",
-  "main": "dist/multiselect-tpls.js",
+  "name": "nithin-angular-multiselect",
+  "version": "1.3.0",
+  "main": ["dist/js/multiselect.min.js","dist/js/templates.min.js","dist/css/multiselect.min.css"],
   "description": "Native AngularJS multiselect directive",
   "license": "MIT",
   "ignore": [
@@ -9,7 +9,16 @@
     "**/*.txt"
   ],
   "dependencies": {
-    "angular": ">=1.0.4"
+    "angular": "^1.6.4",
+    "bootstrap": "^3.3.7"
+  },
+  "overrides": {
+    "bootstrap": {
+      "main": [
+        "dist/css/bootstrap.min.css",
+        "dist/fonts/*"
+      ]
+    }
   },
   "keywords": [
     "angularjs",

@@ -4,10 +4,10 @@ am-multiselect .dropdown-menu{
 }
 
 am-multiselect .dropdown-menu > li > a {
-    padding: 3px 10px;
     cursor:pointer;
+    padding: 3px 10px;
 }
 
-am-multiselect .dropdown-menu > li.selected {
+am-multiselect .dropdown-menu > .selected {
     background-color: #ADD8E6;
 }

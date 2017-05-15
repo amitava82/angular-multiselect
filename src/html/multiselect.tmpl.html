@@ -13,7 +13,7 @@
         </li>
         <li ng-repeat="i in items | filter:searchText" ng-class="{'selected': $index === selectedIndex}">
             <a ng-click="select(i); focus()">
-            <i class='glyphicon' ng-class="{'glyphicon-ok': i.checked, 'empty': !i.checked}"></i> {{i.label}}</a>
+            <i class="glyphicon" ng-class="{'glyphicon-ok': i.checked, 'empty': !i.checked}"></i> {{i.label}}</a>
         </li>
     </ul>
 </div>
