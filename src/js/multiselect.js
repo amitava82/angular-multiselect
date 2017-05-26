@@ -196,13 +196,14 @@ angular.module('am.multiselect', [])
         }
 
         function setModelValue(isMultiple) {
-            var value = null;
+            var value = undefined;
 
             if (isMultiple) {
                 value = [];
                 angular.forEach(scope.items, function (item) {
                     if (item.checked) value.push(item.model);
                 })
+                if(value.length==0) value=undefined;
             } else {
                 angular.forEach(scope.items, function (item) {
                     if (item.checked) {
