@@ -1,6 +1,6 @@
 {
   "name": "nithin-angular-multiselect",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "main": ["dist/js/multiselect.min.js","dist/js/templates.min.js","dist/css/multiselect.min.css"],
   "description": "Native AngularJS multiselect directive",
   "license": "MIT",
