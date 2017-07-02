@@ -95,7 +95,7 @@ angular.module('am.multiselect', [])
             return modelCtrl.$modelValue;
         }, function (newVal) {
         // When the model is assigned a "" or undefined value from controller, need to uncheck all items and clear searchText.label
-            if(angular.isUndefined(newVal) || newVal==="") {
+            if(angular.isUndefined(newVal) || newVal==="" || newVal===null) {
               scope.uncheckAll();
               if(angular.isDefined(scope.searchText))
                 scope.searchText.label="";
