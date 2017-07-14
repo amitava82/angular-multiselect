@@ -49,6 +49,7 @@ angular.module('am.multiselect', [])
         scope.header = 'Select';
         scope.multiple = isMultiple;
         scope.disabled = false;
+        scope.searchDisable = false;
         scope.onBlur = attrs.ngBlur || angular.noop;
 		scope.hoverText = isHover ? scope.header : '';
 
@@ -73,6 +74,13 @@ angular.module('am.multiselect', [])
             return $parse(attrs.disabled)(originalScope);
         }, function (newVal) {
             scope.disabled = newVal;
+        });
+
+        // watch disabled state for search text box
+        scope.$watch(function () {
+            return $parse(attrs.searchDisable)(originalScope);
+        }, function (newVal) {
+            scope.searchDisable = newVal;
         });
 
         // watch single/multiple state for dynamically change single to multiple
