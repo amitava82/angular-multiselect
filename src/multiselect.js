@@ -91,6 +91,7 @@ angular.module('am.multiselect', [])
         scope.$watch(function () {
             return modelCtrl.$modelValue;
         }, function (newVal, oldVal) {
+            getHeaderText();
         // when directive initialize, newVal usually undefined. Also, if model value already set in the controller
         // for preselected list then we need to mark checked in our scope item. But we don't want to do this every time
         // model changes. We need to do this only if it is done outside directive scope, from controller, for example.
@@ -98,7 +99,7 @@ angular.module('am.multiselect', [])
                 markChecked(newVal);
                 scope.$eval(changeHandler);
             }
-            getHeaderText();
+            
             modelCtrl.$setValidity('required', scope.valid());
         }, true);
 
