@@ -1,7 +1,7 @@
 /* eslint angular/controller-name: "off" */
 
 angular.module('app', ['am.multiselect'])
-  .controller('appCtrl', [function () {
+  .controller('appCtrl', ['$log',function ($log) {
     var vm=this;
 
     vm.cars = [
@@ -35,4 +35,8 @@ angular.module('app', ['am.multiselect'])
       }
                     ];
     vm.selectedFruit = null;
+
+    vm.focusHanadler=function(prop1) {
+      $log.info("inside focusHandler - "+prop1);
+    }
 }]);

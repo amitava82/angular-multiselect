@@ -30,7 +30,8 @@
       ng-model="vm.selectedFruit"
       hover="true"
       options="c.id as c.name for c in vm.fruits"
-      change="vm.selected()" ></am-multiselect>
+      change="vm.selected()"
+      ng-focus="vm.focusHanadler(123)"></am-multiselect>
       <div class="well well-sm">
           {{vm.selectedFruit}}
       </div>

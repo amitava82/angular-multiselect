@@ -52,6 +52,7 @@ angular.module('am.multiselect', [])
         scope.searchDisable = false;
         scope.onBlur = attrs.ngBlur || angular.noop;
 		scope.hoverText = isHover ? scope.header : '';
+        scope.onFocus = attrs.ngFocus;
 
         originalScope.$on('$destroy', function () {
             scope.$destroy();
@@ -299,6 +300,10 @@ angular.module('am.multiselect', [])
                     scope.focus();
                 }
             };
+
+            scope.evalFocus = function() {
+              scope.$parent.$eval(scope.onFocus);
+            }
 
             function clickHandler(event) {
                 if (elementMatchesAnyInArray(event.target, element.find(event.target.tagName))) {
