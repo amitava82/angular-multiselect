@@ -53,6 +53,7 @@ angular.module('am.multiselect', [])
         scope.onBlur = attrs.ngBlur || angular.noop;
 		scope.hoverText = isHover ? scope.header : '';
         scope.onFocus = attrs.ngFocus;
+        scope.clazz = attrs.clazz;
 
         originalScope.$on('$destroy', function () {
             scope.$destroy();
@@ -288,6 +289,11 @@ angular.module('am.multiselect', [])
             scope.selectedIndex = null;
             scope.isVisible = false;
             scope.filteredItems = null;
+            
+            scope.ngClazz = {
+                'error': !scope.valid()
+            };
+            scope.ngClazz[scope.$eval(scope.clazz)] = true;
 
             scope.toggleSelect = function () {
                 if (element.hasClass('open')) {
