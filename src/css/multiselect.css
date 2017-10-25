@@ -21,8 +21,9 @@ am-multiselect .dropdown-menu > .selected {
 }
 
 am-multiselect .btn-group > button {
-    height:auto;
-	white-space: normal;
+    border-radius:5px !important; /* csslint allow: known-properties, important */
+    overflow:hidden;
+    white-space: normal;
 	width:100%;
 }
 

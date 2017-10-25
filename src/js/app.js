@@ -92,6 +92,10 @@ angular.module('app', ['am.multiselect'])
       {
         id: 3,
         name: 'Banana'
+      },
+      {
+        id: 4,
+        name: 'BananaBananaBananaBananaBananaBananaBananaBananaBananaBananaBananaBananaBananaBananaBananaBananaBanana'
       }
                     ];
     vm.selectedFruit = null;
