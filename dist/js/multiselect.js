@@ -73,7 +73,7 @@ angular.module('am.multiselect', [])
 
         // watch disabled state
         scope.$watch(function () {
-            return $parse(attrs.disabled)(originalScope);
+            return $parse(attrs.ngDisabled)(originalScope);
         }, function (newVal) {
             scope.disabled = newVal;
         });
@@ -289,7 +289,7 @@ angular.module('am.multiselect', [])
             scope.selectedIndex = null;
             scope.isVisible = false;
             scope.filteredItems = null;
-            
+
             scope.ngClazz = {
                 'error': !scope.valid()
             };
